@@ -34,7 +34,7 @@ class ProductType extends AbstractType
         $categories = $this->categoryRepository->findBy([], ['name' => 'ASC']);
         $choices = [];
         foreach ($categories as $category) {
-            $choices[$category->getName()] = $category->getId();
+            $choices[$category->getName()] = $category;
         }
         return $choices;
     }

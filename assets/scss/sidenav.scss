@@ -1,0 +1,62 @@
+@mixin button {
+  display:inline-block;
+  width:60px;
+  height: 60px;
+  line-height: 60px;
+  font-size:3rem;
+  font-family: $bebas;
+  margin-right:10px;
+  text-align:center;
+  vertical-align: middle;
+  border-radius: 5px;
+  margin-top:10px;
+}
+
+.sidenav {
+  width:50vw;
+  .adder-container {
+    position:relative;
+    width:85%;
+    margin-left:7%;
+    .quantity {
+      font-size: 3rem;
+      font-family: $bebas;
+      height:50px;
+      line-height: 50px;
+      vertical-align: middle;
+      text-align: center;
+      border:1px solid $grey;
+      border-radius: 5px;
+      display:block;
+    }
+    .price-zone {
+      position:absolute;
+      top:0;
+      right:0;
+    }
+    .price {
+      height:35px;
+      line-height: 35px;
+      vertical-align: middle;
+      font-family : $bebas;
+      font-size : 2rem;
+      padding:0 25px;
+    }
+    .calcul-zone {
+      width:250px;
+      margin-left:calc((100% - 230px) / 2);
+      .number {
+        @include button();
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      .eraser {
+        @include button();
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

@@ -3,10 +3,6 @@ export class Cart {
         this.localName = localName;
     }
 
-    createLocalCart() {
-        localStorage.setItem(this.localName, []);
-    }
-
     deleteLocalCart() {
         localStorage.removeItem(this.localName);
     }
@@ -16,14 +12,19 @@ export class Cart {
     }
 
     setCart(val) {
+        if (!this.getCart()) {
+            const key = val.id
+            val = '"' + key + '" : ' + JSON.stringify(val);
+        } else {
+            const key = val.id
+            val = this.getCart() + ', "' + key + '" : ' + JSON.stringify(val)
+
+        }
         localStorage.setItem(this.localName, val);
     }
 
     addToCart(purchase) {
-        let cart = this.getCart();
-        purchase.key = cart.length;
-        cart[purchase.key] = purchase;
-        this.setCart(cart)
+        this.setCart(purchase)
     }
 
     removeFromCart(key) {

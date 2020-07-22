@@ -18,19 +18,22 @@ use \DateTime;
 class PurchaseRepository extends ServiceEntityRepository
 {
     const CASH = 'CASH';
-    
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Purchase::class);
     }
 
-    public function getTotalByDay(DateTime $date)
+    public function getTotalByDay(DateTime $date = null)
     {
+        if (null === $date) {
+            $date = new DateTime('now');
+        }
         $date = $date->format('Y-m-d');
         $start = new DateTime($date . 'T00:00:00');
         $end   = new DateTime($date . 'T23:59:59');
 
-        return $this->createQueryBuilder('p')
+        $result = $this->createQueryBuilder('p')
             ->andWhere('p.createdAt >= :start')
             ->setParameter('start', $start)
             ->andWhere('p.createdAt <= :end')
@@ -38,6 +41,7 @@ class PurchaseRepository extends ServiceEntityRepository
             ->select('SUM(p.totalAmount) total')
             ->getQuery()
             ->getOneOrNullResult();
+        return $result['total'];
     }
 
     public function getCurrentCash()

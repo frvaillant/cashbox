@@ -4,22 +4,25 @@
 
 {% block body %}
     <h1>Product index</h1>
+    <a href="{{ path('product_new') }}" class="btn">Ajouter un produit</a>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Price</th>
+                <th>Produit</th>
+                <th>Prix</th>
+                <th>Catégorie</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for product in products %}
-            <tr>
+            <tr class="{{ product.color }}">
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.price }}</td>
+                <td>{{ product.category }}</td>
                 <td>
                     <a href="{{ path('product_show', {'id': product.id}) }}">show</a>
                     <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
@@ -33,5 +36,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('product_new') }}">Create new</a>
 {% endblock %}

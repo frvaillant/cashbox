@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CashBoxController!{% endblock %}
+
+{% block body %}
+    {% include '_navbar.html.twig' %}
+    <div class="section home grey lighten-2">
+        <div class="">
+            <div class="row">
+                <div class="col s12 m8 flex flex-products">
+                    {% for product in products %}
+                    <div class="product {{ product.color }} sidenav-trigger"
+                         id="{{ product.id }}"
+                         data-name="{{ product.name }}"
+                         data-price="{{ product.price }}"
+                         data-target="adder"
+                         data-id="{{ product.id }}"
+                    >
+                        <span class="product-name">{{product.name}}</span>
+                        <span class="product-price white-text">{{product.price}} €</span>
+                    </div>
+                    {% else %}
+                    aucun produit
+                    {% endfor %}
+
+                </div>
+                <div class="col s12 m4 cart-zone">
+                    <div class="row">
+                        <div class="col s12 clock">
+                            Nous sommes le <span class="timer" id="clock"></span>
+                        </div>
+                        <div class="col s12 total-ticket-zone">
+                            <table class="total-day">
+                                <tr>
+                                    <td class="total-title">Total du jour</td>
+                                    <td><span class="bolder" id="total-day">{{total}}</span> €</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s10 white">
+                            <table id="ticket">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {% include 'cash_box/_product_add.html.twig' %}
+{% endblock %}

@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +19,22 @@ class ProductRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Product::class);
+    }
+
+    public function findAllForCashBox()
+    {
+        return $this->createQueryBuilder('p')
+            ->join(Category::class, 'c', Join::WITH, 'p.category = c.id')
+            ->addSelect('c.color color')
+            ->addSelect('c.name category')
+            ->addSelect('p.name name')
+            ->addSelect('p.price price')
+            ->addSelect('p.id id')
+            ->orderBy('c.name', 'ASC')
+            ->addOrderBy('p.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+
     }
 
     // /**
