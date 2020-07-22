@@ -1,0 +1,22 @@
+.section {
+  &.home {
+    width:100vw;
+    height: 100vh;
+    h1 {
+      font-family: $bebas, 'sans-serif';
+      font-size:8rem;
+      margin-bottom:0;
+    }
+    label {
+      color:white;
+    }
+    input {
+      &[type="text"] {
+        border-bottom:1px solid white;
+      }
+      &[type="password"] {
+        border-bottom:1px solid white;
+      }
+    }
+  }
+}

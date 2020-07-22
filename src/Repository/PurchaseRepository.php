@@ -17,6 +17,8 @@ use \DateTime;
  */
 class PurchaseRepository extends ServiceEntityRepository
 {
+    const CASH = 'CASH';
+    
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Purchase::class);
@@ -33,6 +35,26 @@ class PurchaseRepository extends ServiceEntityRepository
             ->setParameter('start', $start)
             ->andWhere('p.createdAt <= :end')
             ->setParameter('end', $end)
+            ->select('SUM(p.totalAmount) total')
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getCurrentCash()
+    {
+        $date = new DateTime('now');
+        $date = $date->format('Y-m-d');
+        $start = new DateTime($date . 'T00:00:00');
+        $end   = new DateTime($date . 'T23:59:59');
+
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.createdAt >= :start')
+            ->setParameter('start', $start)
+            ->andWhere('p.createdAt <= :end')
+            ->setParameter('end', $end)
+            ->join(PaymentMode::class, 'pm', Join::ON, 'pm.id = p.paymentMode')
+            ->andWhere('pm.identifier = :identifier')
+            ->setParameter('identifier', self::CASH)
             ->select('SUM(p.totalAmount) total')
             ->getQuery()
             ->getOneOrNullResult();

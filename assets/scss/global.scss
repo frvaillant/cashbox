@@ -1,0 +1,23 @@
+* {
+  font-family: $rajdhani;
+}
+.btn {
+  border-radius:0;
+}
+
+.extensive-h {
+  height:100vh;
+}
+.extensive-w {
+  height:100vw;
+}
+
+.flex {
+  display: flex;
+  &.flex-center {
+    align-content: flex-start;
+    align-items: center;
+  }
+}
+
+
