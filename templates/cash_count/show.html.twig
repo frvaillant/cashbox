@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CashCount{% endblock %}
+
+{% block body %}
+    <h1>CashCount</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ cash_count.id }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ cash_count.createdAt ? cash_count.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Amount</th>
+                <td>{{ cash_count.amount }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('cash_count_index') }}">back to list</a>
+
+    <a href="{{ path('cash_count_edit', {'id': cash_count.id}) }}">edit</a>
+
+    {{ include('cash_count/_delete_form.html.twig') }}
+{% endblock %}

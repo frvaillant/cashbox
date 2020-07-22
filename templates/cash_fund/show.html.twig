@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CashFund{% endblock %}
+
+{% block body %}
+    <h1>CashFund</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ cash_fund.id }}</td>
+            </tr>
+            <tr>
+                <th>Amount</th>
+                <td>{{ cash_fund.amount }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ cash_fund.updatedAt ? cash_fund.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('cash_fund_index') }}">back to list</a>
+
+    <a href="{{ path('cash_fund_edit', {'id': cash_fund.id}) }}">edit</a>
+
+    {{ include('cash_fund/_delete_form.html.twig') }}
+{% endblock %}

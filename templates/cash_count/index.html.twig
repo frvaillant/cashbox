@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CashCount index{% endblock %}
+
+{% block body %}
+    <h1>CashCount index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CreatedAt</th>
+                <th>Amount</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cash_count in cash_counts %}
+            <tr>
+                <td>{{ cash_count.id }}</td>
+                <td>{{ cash_count.createdAt ? cash_count.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ cash_count.amount }}</td>
+                <td>
+                    <a href="{{ path('cash_count_show', {'id': cash_count.id}) }}">show</a>
+                    <a href="{{ path('cash_count_edit', {'id': cash_count.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('cash_count_new') }}">Create new</a>
+{% endblock %}

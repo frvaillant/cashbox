@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CashFund index{% endblock %}
+
+{% block body %}
+    <h1>CashFund index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Amount</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cash_fund in cash_funds %}
+            <tr>
+                <td>{{ cash_fund.id }}</td>
+                <td>{{ cash_fund.amount }}</td>
+                <td>{{ cash_fund.updatedAt ? cash_fund.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('cash_fund_show', {'id': cash_fund.id}) }}">show</a>
+                    <a href="{{ path('cash_fund_edit', {'id': cash_fund.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('cash_fund_new') }}">Create new</a>
+{% endblock %}

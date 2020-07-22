@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit CashCount{% endblock %}
+
+{% block body %}
+    <h1>Edit CashCount</h1>
+
+    {{ include('cash_count/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('cash_count_index') }}">back to list</a>
+
+    {{ include('cash_count/_delete_form.html.twig') }}
+{% endblock %}
