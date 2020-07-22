@@ -15,7 +15,7 @@ export class Ticket {
             '<td class="right-align">' + elem.quantity * elem.price + '€</td>' +
             '<td>' +
                 '<a href="#" class="delete-purchase-product" data-id="' + elem.id +'">' +
-                    '<i class="material-icons">delete</i>' +
+                    '<i class="material-icons small red-text">delete</i>' +
                 '</a>' +
             '</td>'
             '</tr>'

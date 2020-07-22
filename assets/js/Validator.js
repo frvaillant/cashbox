@@ -14,7 +14,8 @@ export class Validator {
         }
         if (this.button) {
             this.button.addEventListener('click', () => {
-                console.log(JSON.parse(this.getPurchase()))
+                const data = JSON.parse(this.getPurchase())
+
             })
         }
     }
