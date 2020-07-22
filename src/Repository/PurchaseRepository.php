@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Purchase;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use \DateTime;
 
 /**
  * @method Purchase|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +18,22 @@ class PurchaseRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Purchase::class);
+    }
+
+    public function getTotalByDay(DateTime $date)
+    {
+        $date = $date->format('Y-m-d');
+        $start = new DateTime($date . 'T00:00:00');
+        $end   = new DateTime($date . 'T23:59:59');
+
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.createdAt >= :start')
+            ->setParameter('start', $start)
+            ->andWhere('p.createdAt <= :end')
+            ->setParameter('end', $end)
+            ->select('SUM(p.totalAmount) total')
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     // /**

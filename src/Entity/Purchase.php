@@ -6,6 +6,7 @@ use App\Repository\PurchaseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=PurchaseRepository::class)
@@ -55,8 +56,11 @@ class Purchase
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt = null): self
     {
+        if (null === $createdAt) {
+            $createdAt = new DateTime('now');
+        }
         $this->createdAt = $createdAt;
 
         return $this;
