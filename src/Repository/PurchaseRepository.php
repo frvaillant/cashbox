@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\PaymentMode;
 use App\Entity\Purchase;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 use \DateTime;
 
@@ -35,6 +37,23 @@ class PurchaseRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function findAllByDate(DateTime $date)
+    {
+        $date = $date->format('Y-m-d');
+        $start = new DateTime($date . 'T00:00:00');
+        $end   = new DateTime($date . 'T23:59:59');
+
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.createdAt >= :start')
+            ->setParameter('start', $start)
+            ->andWhere('p.createdAt <= :end')
+            ->join(PaymentMode::class, 'pm', Join::WITH, 'p.paymentMode = pm.id')
+            ->setParameter('end', $end)
+            ->orderBy('p.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
+        }
 
     // /**
     //  * @return Purchase[] Returns an array of Purchase objects

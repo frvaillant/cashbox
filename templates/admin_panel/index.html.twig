@@ -8,19 +8,46 @@
             <h1>Gérer votre caisse</h1>
         </div>
         <div class="row">
+            {% include 'admin_panel/_admin_navbar.html.twig' %}
+        </div>
+        <div class="row">
+
             <div class="col s12 m6">
                 <div class="row">
-                    <a class="btn">Gérer les catégories</a>
+                    Total du jour : {{ total_today.total }} €
                 </div>
                 <div class="row">
-                    <a class="btn">Gérer les produits</a>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>
+                                    Date et heure
+                                </td>
+                                <td>
+                                    Moyen de paiement
+                                </td>
+                                <td>
+                                    Montant
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for purchase in purchases %}
+                                <tr>
+                                    <td>
+                                        {{ purchase.createdAt|dateName }} à {{ purchase.createdAt|timeFormat }}
+                                    </td>
+                                    <td>
+                                        {{ purchase.paymentMode.name }}
+                                    </td>
+                                    <td>
+                                        {{ purchase.totalAmount }} €
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
-                <div class="row">
-                    <a class="btn">Gérer les moyens de paiement</a>
-                </div>
-            </div>
-            <div class="col s12 m6">
-                cashbox
             </div>
         </div>
     </div>

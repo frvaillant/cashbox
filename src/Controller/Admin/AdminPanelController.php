@@ -14,10 +14,13 @@ class AdminPanelController extends AbstractController
      */
     public function index(CashFundRepository $cashFundRepository, PurchaseRepository $purchaseRepository)
     {
-        $totalAmountToday = $purchaseRepository->getTotalByDay(new DateTime('2020-07-22T00:00:00'));
-        dd($totalAmountToday);
+        $today = new DateTime('now');
+        $totalAmountToday = $purchaseRepository->getTotalByDay($today);
+        $purchasesToday   = $purchaseRepository->findAllByDate($today);
         return $this->render('admin_panel/index.html.twig', [
-            'controller_name' => 'AdminPanelController',
+            'controller_name'   => 'AdminPanelController',
+            'total_today'       => $totalAmountToday,
+            'purchases'         => $purchasesToday,
         ]);
     }
 }
