@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
         productsButtons[i].addEventListener('mouseup', () => {
             productsButtons[i].classList.remove('active')
         })
+        productsButtons[i].addEventListener('mouseout', () => {
+            productsButtons[i].classList.remove('active')
+        })
     }
 
     for (let i = 0; i < productsButtons.length; i++) {

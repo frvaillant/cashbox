@@ -14,8 +14,10 @@
         <h1>Product index</h1>
         <table class="table">
             <thead>
-                <tr>
+                <tr class="bolder">
                     <th>Produit</th>
+                    <th>Stock</th>
+                    <th></th>
                     <th>Prix</th>
                     <th>Catégorie</th>
                     <th></th>
@@ -25,9 +27,11 @@
             <tbody>
             {% for product in products %}
                 <tr class="">
-                    <td class="bolder {{ product.color }}">{{ product.name }}</td>
+                    <td class="bolder {{ product.category.color }}-text">{{ product.name }}</td>
+                    <td>{% if product.stock %}{{ product.stock.quantity }}{% endif %}</td>
+                    <td></td>
                     <td>{{ product.price }}€</td>
-                    <td>{{ product.category }}</td>
+                    <td>{{ product.category.name }}</td>
                     <td>
                         <a href="{{ path('product_edit', {'id': product.id}) }}" class="btn-floating cyan">
                             <i class="material-icons">edit</i>
