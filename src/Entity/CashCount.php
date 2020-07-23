@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use App\Repository\CashCountRepository;
 use Doctrine\ORM\Mapping as ORM;
+use \DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=CashCountRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class CashCount
 {
@@ -23,12 +25,6 @@ class CashCount
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=PaymentMode::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $paymentMode;
-
-    /**
      * @ORM\Column(type="float")
      */
     private $amount;
@@ -43,22 +39,14 @@ class CashCount
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    /**
+     * @ORM\PrePersist
+     * @return CashCount
+     * @throws \Exception
+     */
+    public function setCreatedAt(): self
     {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getPaymentMode(): ?PaymentMode
-    {
-        return $this->paymentMode;
-    }
-
-    public function setPaymentMode(?PaymentMode $paymentMode): self
-    {
-        $this->paymentMode = $paymentMode;
-
+        $this->createdAt = new DateTime('Europe/Paris');
         return $this;
     }
 

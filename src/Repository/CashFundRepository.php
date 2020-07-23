@@ -19,6 +19,27 @@ class CashFundRepository extends ServiceEntityRepository
         parent::__construct($registry, CashFund::class);
     }
 
+    public function getCashFund()
+    {
+        $result = $this->createQueryBuilder('c')
+            ->select('c.amount')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+        return $result['amount'];
+    }
+
+    public function getCashFundParams()
+    {
+        $result = $this->createQueryBuilder('c')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+        return $result;
+    }
+
     // /**
     //  * @return CashFund[] Returns an array of CashFund objects
     //  */

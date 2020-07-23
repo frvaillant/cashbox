@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\CashCount;
 use App\Entity\Extraction;
+use App\Form\CashCountType;
 use App\Form\ExtractionType;
+use App\Repository\CashCountRepository;
 use App\Repository\PaymentModeRepository;
 use App\Repository\ProductRepository;
 use App\Repository\PurchaseRepository;
@@ -34,19 +37,34 @@ class CashBoxController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($extraction);
             $entityManager->flush();
-            $response = $this->redirectToRoute('cash_box');
-        } else {
-            $products = $productRepository->findAllForCashBox();
+            return $this->redirectToRoute('cash_box');
+        }
+
+        $cashCount = new CashCount();
+        $formCash = $this->createForm(CashCountType::class, $cashCount);
+        $formCash->handleRequest($request);
+
+        if ($formCash->isSubmitted() && $formCash->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($cashCount);
+            $entityManager->flush();
+            return $this->redirectToRoute('cash_box');
+        }
+
+
+        $products = $productRepository->findAllForCashBox();
             $totalForDay = $purchaseRepository->getTotalByDay();
             $paymentModes = $paymentModeRepository->findAll();
-            $response = $this->render('cash_box/index.html.twig', [
+            return $this->render('cash_box/index.html.twig', [
                 'products' => $products,
                 'total' => $totalForDay,
                 'payment_modes' => $paymentModes,
                 'extraction' => $extraction,
                 'form' => $form->createView(),
+                'cash_count' => $cashCount,
+                'formcash' => $formCash->createView(),
             ]);
-        }
+
 
         return $response;
     }

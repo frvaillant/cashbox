@@ -88,6 +88,17 @@
         </div>
     </div>
 
+    <div id="cashcount" class="modal">
+        <div class="modal-content">
+            <h4>Comptage de la caisse</h4>
+            <p>Saisissez le montant d'espèces que vous comptez dans la caisse</p>
+            {{ include('cash_count/_form.html.twig') }}
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fermer</a>
+        </div>
+    </div>
+
     {% include 'cash_box/_product_add.html.twig' %}
 
 {% endblock %}

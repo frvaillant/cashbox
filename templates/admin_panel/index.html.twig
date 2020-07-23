@@ -34,14 +34,26 @@
                         <tr>
                             <td>Total encaissement espèces</td>
                             <td class="bolder right-align">{{cash_today}}€</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>Total extractions</td>
                             <td class="bolder right-align">{{extractions}}€</td>
+                            <td></td>
                         </tr>
                         <tr class="bolder">
                             <td>Espèces en caisse</td>
                             <td class="bolder right-align">{{cash_in_box}}€</td>
+                            <td></td>
+                        </tr>
+                        <tr class="bolder">
+                            <td>Comptage de la caisse</td>
+                            <td class="bolder right-align">{{ today_cash_count }} €</td>
+                            <td>
+                               {% if is_count_ok %} <i class="material-icons cyan-text">check</i>
+                                {% else %} <i class="material-icons pink-text">cancel</i>
+                                {% endif %}
+                            </td>
                         </tr>
                     </table>
                 </div>

@@ -41,7 +41,7 @@ class Extraction
 
     /**
      * @ORM\PrePersist
-     * @return Client
+     * @return Extraction
      * @throws \Exception
      */
     public function setCreatedAt(): self

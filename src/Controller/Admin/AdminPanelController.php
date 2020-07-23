@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Repository\CashCountRepository;
 use App\Repository\CashFundRepository;
 use App\Repository\ExtractionRepository;
 use App\Repository\PurchaseRepository;
@@ -18,6 +19,7 @@ class AdminPanelController extends AbstractController
         CashFundRepository $cashFundRepository,
         PurchaseRepository $purchaseRepository,
         PurchaseUnityRepository $purchaseUnityRepository,
+        CashCountRepository $cashCountRepository,
         ExtractionRepository $extractionRepository
     ) {
         $today = new DateTime('now');
@@ -25,10 +27,12 @@ class AdminPanelController extends AbstractController
         $purchasesToday   = $purchaseRepository->findAllByDate($today);
         $purchasesByPayment = $purchaseRepository->getTotalByPaymentModeToday();
         $purchasesByProduct = $purchaseUnityRepository->getTotalByProductToday();
-        $cashFund = $cashFundRepository->findOneById(1);
+        $cashFund = $cashFundRepository->getCashFundParams();
         $cashToday = $purchaseRepository->getCurrentCash();
         $totalExtractions = $extractionRepository->getTotalExtractions();
         $totalCashInBox = $cashToday - $totalExtractions;
+        $todayCashCount = $cashCountRepository->getTotayCashCount();
+        $isCountOk = ($totalCashInBox + $cashFundRepository->getCashFund() - $todayCashCount === 0);
 
         return $this->render('admin_panel/index.html.twig', [
             'controller_name'      => 'AdminPanelController',
@@ -39,7 +43,9 @@ class AdminPanelController extends AbstractController
             'cashfund'             => $cashFund,
             'cash_today'           => $cashToday,
             'extractions'          => $totalExtractions,
-            'cash_in_box'          => $totalCashInBox,
+            'cash_in_box'          => $totalCashInBox + $cashFundRepository->getCashFund(),
+            'today_cash_count'     => $todayCashCount,
+            'is_count_ok'          => $isCountOk,
         ]);
     }
 }
