@@ -28,9 +28,17 @@ export class Ticket {
             '</tr>'
     }
 
+
+    initializeSelect() {
+        const selector = document.getElementById('payment-modes')
+        const row = document.getElementById('row-select')
+        row.appendChild(selector)
+        M.FormSelect.init(selector);
+    }
+
     generateUndo() {
         return '<tr>' +
-            '<td colspan="4" class="left-align"><a class="btn purchase black" id="undo-purchase-btn">annuler</a></td>' +
+            '<td colspan="5" class="right-align"><a class="btn purchase black" id="undo-purchase-btn">annuler</a></td>' +
             '</tr>'
     }
 
@@ -55,6 +63,7 @@ export class Ticket {
             this.ticket.innerHTML = this.ticket.innerHTML + this.generateHtml(purchase)
         }
         this.ticket.innerHTML += this.generateTotal(this.getTotal())
+        this.initializeSelect()
         this.ticket.innerHTML += this.generateUndo()
         this.validator = new Validator(this.localName)
         document.getElementById('undo-purchase-btn').addEventListener('click', () => {

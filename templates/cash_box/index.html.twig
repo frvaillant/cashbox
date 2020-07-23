@@ -39,9 +39,27 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s10 white ticket-table">
-                            <table id="ticket">
+                        <div class="col s10 ticket-table">
+                            <table id="ticket" class="white">
                             </table>
+                            <table id="actions" class="white">
+                                <tr>
+                                    <td colspan="5">
+                                        <select id="payment-modes">
+                                            {% for payment_mode in payment_modes %}
+                                                <option value="{{ payment_mode.id }}">{{ payment_mode.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="left-align">
+                                        <a class="btn purchase pink" id="valid-purchase-btn">valider</a>
+                                    </td>
+                                    <td class="right-align bolder total-ticket"> </td>
+                                </tr>
+                            </table>
+
                         </div>
                     </div>
                 </div>
