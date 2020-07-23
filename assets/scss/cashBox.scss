@@ -12,12 +12,15 @@
     margin-right:5px;
     position:relative;
     border-radius: 5px;
+    box-shadow: 3px 3px 4px $shadow-light;
+    &.active {
+      transform: scale(0.95);
+      box-shadow: none;
+    }
     &:hover {
       cursor: pointer;
-      .product-name {
-        color: white;
-      }
     }
+
     .product-price {
       position:absolute;
       bottom:0;

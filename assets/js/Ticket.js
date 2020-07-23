@@ -7,6 +7,14 @@ export class Ticket {
         this.ticket = document.getElementById('ticket')
     }
 
+    showActions() {
+        const actions = document.getElementById('actions')
+            if (actions.classList.contains('hide')) {
+                actions.classList.remove('hide')
+                new Validator(this.localName)
+            }
+    }
+
     generateHtml(elem) {
         return '<tr>' +
             '<td>' + elem.name + '</td>' +
@@ -22,24 +30,7 @@ export class Ticket {
     }
 
     generateTotal(total) {
-        return '<tr>' +
-            '<td colspan="3" class="left-align"><a class="btn purchase pink" id="valid-purchase-btn">valider</a></td>' +
-            '<td class="right-align bolder total-ticket">' + total + '€</td>' +
-            '</tr>'
-    }
-
-
-    initializeSelect() {
-        const selector = document.getElementById('payment-modes')
-        const row = document.getElementById('row-select')
-        row.appendChild(selector)
-        M.FormSelect.init(selector);
-    }
-
-    generateUndo() {
-        return '<tr>' +
-            '<td colspan="5" class="right-align"><a class="btn purchase black" id="undo-purchase-btn">annuler</a></td>' +
-            '</tr>'
+        document.getElementById('totalCell').innerHTML = total + '€'
     }
 
     getTotal() {
@@ -54,6 +45,7 @@ export class Ticket {
     resetTicket() {
         document.getElementById('ticket').innerHTML = ''
         localStorage.removeItem(this.localName);
+        document.getElementById('actions').classList.add('hide')
     }
 
     update() {
@@ -62,10 +54,8 @@ export class Ticket {
         for (let [key, purchase] of Object.entries(purchases)){
             this.ticket.innerHTML = this.ticket.innerHTML + this.generateHtml(purchase)
         }
-        this.ticket.innerHTML += this.generateTotal(this.getTotal())
-        this.initializeSelect()
-        this.ticket.innerHTML += this.generateUndo()
-        this.validator = new Validator(this.localName)
+        this.showActions()
+        this.generateTotal(this.getTotal())
         document.getElementById('undo-purchase-btn').addEventListener('click', () => {
             this.resetTicket()
         })

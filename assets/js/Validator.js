@@ -5,6 +5,7 @@ export class Validator {
         this.localName = localName
         this.button = document.getElementById('valid-purchase-btn')
         this.deletors = document.getElementsByClassName('delete-purchase-product')
+        this.paymentModes = document.getElementsByClassName('pm')
 
         if (this.deletors.length > 0) {
             for (let i = 0; i < this.deletors.length; i++) {
@@ -18,18 +19,37 @@ export class Validator {
             this.button.addEventListener('click', () => {
                 const data = JSON.parse(this.getPurchase())
                 const url = '/purchase/add';
-                this.registerPurchase(url, data)
+                if (this.getPaymentMode()) {
+                    this.registerPurchase(url, data)
+                } else {
+                    M.toast({html:'Choisir un moyen de paiement', classes:'red'})
+                }
             })
         }
+    }
+
+    getPaymentMode() {
+        for(let i = 0; i < this.paymentModes.length; i++) {
+            if (this.paymentModes[i].checked) {
+                return this.paymentModes[i].value
+            }
+        }
+        return null
     }
 
     registerPurchase(url, data) {
         axios.post(url, data)
             .then(response => {
+                if (response.status === 200) {
+                    window.location.href='/cashbox'
+                }
+                else {
+                    M.toast({html:'Une erreur est survenue', classes:'red'})
+                }
             })
     }
 
     getPurchase() {
-        return '{' + localStorage.getItem(this.localName) + '}';
+        return '{ "pm" : { "payment_mode" : "' + this.getPaymentMode() + '"}, ' + localStorage.getItem(this.localName) + '}';
     }
 }

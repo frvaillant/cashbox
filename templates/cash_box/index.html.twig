@@ -4,7 +4,7 @@
 
 {% block body %}
     {% include '_navbar.html.twig' %}
-    <div class="section home grey lighten-2">
+    <div class="section home grey lighten-3">
         <div class="">
             <div class="row">
                 <div class="col s12 m8 flex flex-products">
@@ -42,21 +42,30 @@
                         <div class="col s10 ticket-table">
                             <table id="ticket" class="white">
                             </table>
-                            <table id="actions" class="white">
+                            <table id="actions" class="white hide">
                                 <tr>
-                                    <td colspan="5">
-                                        <select id="payment-modes">
+                                    <td colspan="5" class="left-align">
+                                        <form>
                                             {% for payment_mode in payment_modes %}
-                                                <option value="{{ payment_mode.id }}">{{ payment_mode.name }}</option>
+                                                <label>
+                                                    <input type="radio" class="pm" name="pm" value="{{ payment_mode.id }}" id="{{ payment_mode.id }}"/>
+                                                    <span class="black-text">{{ payment_mode.name }}</span>
+                                                </label><br>
                                             {% endfor %}
-                                        </select>
+                                        </form>
+
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="3" class="left-align">
                                         <a class="btn purchase pink" id="valid-purchase-btn">valider</a>
                                     </td>
-                                    <td class="right-align bolder total-ticket"> </td>
+                                    <td class="right-align bolder total-ticket" id="totalCell"> </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" class="right-align">
+                                        <a class="btn purchase black" id="undo-purchase-btn">annuler</a>
+                                    </td>
                                 </tr>
                             </table>
 

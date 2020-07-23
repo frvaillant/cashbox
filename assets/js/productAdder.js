@@ -11,6 +11,15 @@ document.addEventListener('DOMContentLoaded', () => {
     cart.deleteLocalCart()
 
     for (let i = 0; i < productsButtons.length; i++) {
+        productsButtons[i].addEventListener('mousedown', () => {
+            productsButtons[i].classList.add('active')
+        })
+        productsButtons[i].addEventListener('mouseup', () => {
+            productsButtons[i].classList.remove('active')
+        })
+    }
+
+    for (let i = 0; i < productsButtons.length; i++) {
         productsButtons[i].addEventListener('click', () => {
             calculator.reset()
             const name = productsButtons[i].dataset.name
