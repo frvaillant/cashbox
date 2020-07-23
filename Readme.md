@@ -1,28 +1,32 @@
-#CASHBOX
+# CASHBOX
 
 Cashbox is a software to manage cash for little commercial entities
 
-#Author
+## Author
 François VAILLANT
 
-#Version
+## Version
 1.0
 
-#Stack
+## Stack
  - Symfony
  - Materialize css
  - Javascript
  
-#How to install
+## License
+MIT 
+ 
+## How to install
 
 download the repo
 ```
 git clone https://github.com/frvaillant/cashbox
 ```
-run the file
+run the command
 ```
-install.sh
+sh install.sh
 ```
-The script will ask you informations to set up your database and run the necessary commands
+The script will ask you informations to set up your database 
+and will run the necessary commands
 
 
