@@ -1,22 +1,22 @@
-#CASHBOX
+# CASHBOX
 
 Cashbox is a software to manage cash for little commercial entities
 
-#Author
+## Author
 François VAILLANT
 
-#Version
+## Version
 1.0
 
-#Stack
+## Stack
  - Symfony
  - Materialize css
  - Javascript
  
-# License
+## License
 MIT 
  
-#How to install
+## How to install
 
 download the repo
 ```
