@@ -40,6 +40,11 @@ class Product
      */
     private $purchaseUnities;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Stock::class, mappedBy="product", cascade={"persist", "remove"})
+     */
+    private $stock;
+
     public function __construct()
     {
         $this->purchaseUnities = new ArrayCollection();
@@ -112,6 +117,23 @@ class Product
             if ($purchaseUnity->getProduct() === $this) {
                 $purchaseUnity->setProduct(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getStock(): ?Stock
+    {
+        return $this->stock;
+    }
+
+    public function setStock(Stock $stock): self
+    {
+        $this->stock = $stock;
+
+        // set the owning side of the relation if necessary
+        if ($stock->getProduct() !== $this) {
+            $stock->setProduct($this);
         }
 
         return $this;
