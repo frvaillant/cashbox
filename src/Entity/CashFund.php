@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CashFundRepository;
 use Doctrine\ORM\Mapping as ORM;
+use \DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=CashFundRepository::class)
@@ -49,8 +50,11 @@ class CashFund
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(\DateTimeInterface $updatedAt = null): self
     {
+        if (null === $updatedAt) {
+            $updatedAt = new DateTime('now');
+        }
         $this->updatedAt = $updatedAt;
 
         return $this;

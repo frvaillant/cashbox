@@ -1,12 +1,16 @@
-<!-- HAVE TO BE INCLUDED IN A .row DIV -->
-    <div class="col s12">
-        <a href="{{ path('admin_panel') }}" class="btn-small">Admin</a>
+<nav>
+    <div class="nav-wrapper pink">
+        <a href="/cashbox" class="brand-logo"><h5>Cashbox 1.0</h5></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
 
-        <a href="{{ path('category_index') }}" class="btn-small">Gérer les catégories</a>
+            <li><a href="{{ path('admin_panel') }}" >Accueil</a></li>
 
-        <a href="{{ path('product_index') }}" class="btn-small">Gérer les produits</a>
+            <li><a href="{{ path('category_index') }}" >Gérer les catégories</a></li>
 
-        <a href="{{ path('cash_fund_index') }}" class="btn-small">Fond de caisse</a>
+            <li><a href="{{ path('product_index') }}" >Gérer les produits</a></li>
 
-        <a href="{{ path('payment_mode_index') }}" class="btn-small">Gérer les moyens de paiement</a>
+            <li><a href="{{ path('payment_mode_index') }}" >Gérer les moyens de paiement</a></li>
+
+        </ul>
     </div>
+</nav>

@@ -81,32 +81,28 @@ class PurchaseRepository extends ServiceEntityRepository
             ->getResult();
         }
 
-    // /**
-    //  * @return Purchase[] Returns an array of Purchase objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getTotalByPaymentModeToday(DateTime $date = null)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        if (null === $date) {
+            $date = new DateTime('now');
+        }
+        $date = $date->format('Y-m-d');
+        $start = new DateTime($date . 'T00:00:00');
+        $end   = new DateTime($date . 'T23:59:59');
 
-    /*
-    public function findOneBySomeField($value): ?Purchase
-    {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('p.createdAt >= :start')
+            ->setParameter('start', $start)
+            ->andWhere('p.createdAt <= :end')
+            ->setParameter('end', $end)
+            ->select('SUM(p.totalAmount) total')
+            ->addSelect('count(p.id) counter')
+            ->join(PaymentMode::class, 'pm', Join::WITH, 'p.paymentMode = pm.id')
+            ->addSelect('pm.name')
+            ->groupBy('pm.name')
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
+
+
 }

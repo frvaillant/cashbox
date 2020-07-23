@@ -13,7 +13,6 @@ class CashFundType extends AbstractType
     {
         $builder
             ->add('amount')
-            ->add('updatedAt')
         ;
     }
 

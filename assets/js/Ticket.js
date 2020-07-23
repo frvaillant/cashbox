@@ -22,10 +22,10 @@ export class Ticket {
             '<td> x ' + elem.quantity + '</td>' +
             '<td class="right-align">' + elem.quantity * elem.price + '€</td>' +
             '<td>' +
-                '<a href="#" class="delete-purchase-product" data-id="' + elem.id +'">' +
-                    '<i class="material-icons small red-text">delete</i>' +
-                '</a>' +
-            '</td>'
+                //'<a href="#" class="delete-purchase-product" data-id="' + elem.id +'">' +
+                //    '<i class="material-icons small red-text">delete</i>' +
+                //'</a>' +
+            '</td>' +
             '</tr>'
     }
 

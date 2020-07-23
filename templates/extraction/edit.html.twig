@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Extraction{% endblock %}
+
+{% block body %}
+    <h1>Edit Extraction</h1>
+
+    {{ include('extraction/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('extraction_index') }}">back to list</a>
+
+    {{ include('extraction/_delete_form.html.twig') }}
+{% endblock %}

@@ -77,5 +77,18 @@
         </div>
     </div>
 
+
+    <div id="extract-fund" class="modal">
+        <div class="modal-content">
+            <h4>Extraction de caisse</h4>
+            <p>Saisissez le montant d'espèces que vous retirez de la caisse</p>
+            {{ include('extraction/_form.html.twig') }}
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fermer</a>
+        </div>
+    </div>
+
     {% include 'cash_box/_product_add.html.twig' %}
+
 {% endblock %}

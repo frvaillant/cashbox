@@ -2,24 +2,26 @@
 
 namespace App\Form;
 
-use App\Entity\PaymentMode;
+use App\Entity\Extraction;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PaymentModeType extends AbstractType
+
+class ExtractionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
-            ->add('name')
+            ->add('amount')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => PaymentMode::class,
+            'data_class' => Extraction::class,
         ]);
     }
 }

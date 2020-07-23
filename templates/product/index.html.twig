@@ -1,39 +1,51 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_admin.html.twig' %}
 
 {% block title %}Product index{% endblock %}
 
 {% block body %}
-    <h1>Product index</h1>
-    <a href="{{ path('product_new') }}" class="btn">Ajouter un produit</a>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Produit</th>
-                <th>Prix</th>
-                <th>Catégorie</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for product in products %}
-            <tr class="{{ product.color }}">
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.category }}</td>
-                <td>
-                    <a href="{{ path('product_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+<div class="container">
+    <div class="row">
+        <div class="col s12 m3">
+            <div class="row flex flex-center extensive-h">
+                <a href="{{ path('product_new') }}" class="btn cyan">Ajouter</a>
+            </div>
+        </div>
+        <div class="col s12 m9">
+        <h1>Product index</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Produit</th>
+                    <th>Prix</th>
+                    <th>Catégorie</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+                <tr class="">
+                    <td class="bolder {{ product.color }}">{{ product.name }}</td>
+                    <td>{{ product.price }}€</td>
+                    <td>{{ product.category }}</td>
+                    <td>
+                        <a href="{{ path('product_edit', {'id': product.id}) }}" class="btn-floating cyan">
+                            <i class="material-icons">edit</i>
+                        </a>
+                    </td>
+                    <td>
+                        {{ include('product/_delete_form.html.twig') }}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

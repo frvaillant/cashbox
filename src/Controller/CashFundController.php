@@ -39,7 +39,7 @@ class CashFundController extends AbstractController
             $entityManager->persist($cashFund);
             $entityManager->flush();
 
-            return $this->redirectToRoute('cash_fund_index');
+            return $this->redirectToRoute('admin_panel');
         }
 
         return $this->render('cash_fund/new.html.twig', [

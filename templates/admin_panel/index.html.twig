@@ -1,53 +1,100 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_admin.html.twig' %}
 
 {% block title %}Admin CashBox{% endblock %}
 
 {% block body %}
     <div class="container">
         <div class="row">
-            <h1>Gérer votre caisse</h1>
+            <div class="col s12 m8">
+                <h1>Gérer votre caisse</h1>
+            </div>
+            <div class="col s12 m4">
+            </div>
         </div>
-        <div class="row">
-            {% include 'admin_panel/_admin_navbar.html.twig' %}
-        </div>
-        <div class="row">
 
-            <div class="col s12 m6">
-                <div class="row">
-                    Total du jour : {{ total_today}} €
-                </div>
-                <div class="row">
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>
-                                    Date et heure
-                                </td>
-                                <td>
-                                    Moyen de paiement
-                                </td>
-                                <td>
-                                    Montant
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for purchase in purchases %}
-                                <tr>
-                                    <td>
-                                        {{ purchase.createdAt|dateName }} à {{ purchase.createdAt|timeFormat }}
-                                    </td>
-                                    <td>
-                                        {{ purchase.paymentMode.name }}
-                                    </td>
-                                    <td>
-                                        {{ purchase.totalAmount }} €
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
+        <div class="row">
+            <div class="col s12 m5">
+                <h4>Votre fond de caisse</h4>
+                <table>
+                    <tr>
+                        <td>Montant</td>
+                        <td class="bolder">{{cashfund.amount}}€</td>
+                        <td>
+                            <a href="{{ path('cash_fund_edit', {'id': cashfund.id}) }}" class="btn-floating cyan">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col m6 s12 offset-m1">
+                <h4>Journal de caisse du jour</h4>
+                <table>
+                    <thead>
+                    <tr>
+                        <td class="bolder">
+                            Moyens de paiement
+                        </td>
+                        <td class="bolder center-align">
+                            Nombre de paiements
+                        </td>
+                        <td class="right-align bolder">
+                            Total du jour
+                        </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {%  for payment_mode in purchases_by_payment %}
+                    <tr>
+                        <td>
+                            {{ payment_mode.name }}
+                        </td>
+                        <td class="center-align">
+                            {{ payment_mode.counter }}
+                        </td>
+                        <td class="right-align bolder">
+                            {{ payment_mode.total }} €
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="3" class="bolder grey lighten-4 right-align">
+                            {{ total_today}} €
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <thead>
+                    <tr>
+                        <td class="bolder">
+                            Produit
+                        </td>
+                        <td class="bolder center-align">
+                            Quantité
+                        </td>
+                        <td class="right-align bolder">
+                            Total du jour
+                        </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {%  for purchase_product in purchases_products %}
+                        <tr>
+                            <td>
+                                {{ purchase_product.name }}
+                            </td>
+                            <td class="center-align">
+                                {{ purchase_product.quantity }}
+                            </td>
+                            <td class="right-align bolder">
+                                {{ purchase_product.total }} €
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
             </div>
         </div>
     </div>

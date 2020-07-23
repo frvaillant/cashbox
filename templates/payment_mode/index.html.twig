@@ -1,37 +1,50 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_admin.html.twig' %}
 
 {% block title %}PaymentMode index{% endblock %}
 
 {% block body %}
-    <h1>PaymentMode index</h1>
+<div class="container">
+    <div class="row">
+        <div class="col s12 m3">
+            <div class="row flex flex-center extensive-h">
+                <a href="{{ path('payment_mode_new') }}" class="btn cyan">Ajouter</a>
+            </div>
+        </div>
+        <div class="col s12 m9">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Identifier</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for payment_mode in payment_modes %}
-            <tr>
-                <td>{{ payment_mode.id }}</td>
-                <td>{{ payment_mode.name }}</td>
-                <td>{{ payment_mode.identifier }}</td>
-                <td>
-                    <a href="{{ path('payment_mode_show', {'id': payment_mode.id}) }}">show</a>
-                    <a href="{{ path('payment_mode_edit', {'id': payment_mode.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <h1>Les moyens de paiement</h1>
 
-    <a href="{{ path('payment_mode_new') }}">Create new</a>
+            <table class="table striped">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for payment_mode in payment_modes %}
+                    <tr>
+                        <td>{{ payment_mode.name }}</td>
+                        <td>
+                            <a
+                                href="{{ path('payment_mode_edit', {'id': payment_mode.id}) }}"
+                                class="btn-floating cyan"><i class="material-icons">edit</i>
+                            </a>
+                        </td>
+                        <td>
+                            {{ include('payment_mode/_delete_form.html.twig') }}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
