@@ -79,4 +79,14 @@ class Stock
         $this->updatedAt = new DateTime('Europe/Paris');
         return $this;
     }
+
+    public function decreaseStock($quantity): self {
+        $this->setQuantity($this->getQuantity() - $quantity);
+        return $this;
+    }
+
+    public function increaseStock($quantity): self {
+        $this->setQuantity($this->getQuantity() + $quantity);
+        return $this;
+    }
 }

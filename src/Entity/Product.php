@@ -127,6 +127,11 @@ class Product
         return $this->stock;
     }
 
+    public function getStockQuantity(): ?int
+    {
+        return $this->getStock()->getQuantity();
+    }
+
     public function setStock(Stock $stock): self
     {
         $this->stock = $stock;

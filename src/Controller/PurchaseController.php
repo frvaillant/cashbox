@@ -6,6 +6,7 @@ use App\Entity\Purchase;
 use App\Entity\PurchaseUnity;
 use App\Repository\PaymentModeRepository;
 use App\Repository\ProductRepository;
+use App\Repository\StockRepository;
 use App\Service\CartAmoutCalculator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +25,8 @@ class PurchaseController extends AbstractController
         CartAmoutCalculator $amoutCalculator,
         PaymentModeRepository $paymentModeRepository,
         EntityManagerInterface $entityManager,
-        ProductRepository $productRepository
+        ProductRepository $productRepository,
+        StockRepository $stockRepository
     ) {
         $data = $request->getContent();
         $cart = json_decode($data, true);
@@ -44,6 +46,12 @@ class PurchaseController extends AbstractController
                 $purchaseUnity->setQuantity($purchaseUnit['quantity']);
                 $purchaseUnity->setPurchase($purchase);
                 $entityManager->persist($purchaseUnity);
+
+                $stock = $stockRepository->findOneBy(['product' => $product]);
+                if($stock) {
+                    $stock->decreaseStock($purchaseUnit['quantity']);
+                    $entityManager->persist($stock);
+                }
             }
         }
 
