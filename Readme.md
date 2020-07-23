@@ -13,16 +13,20 @@ François VAILLANT
  - Materialize css
  - Javascript
  
+# License
+MIT 
+ 
 #How to install
 
 download the repo
 ```
 git clone https://github.com/frvaillant/cashbox
 ```
-run the file
+run the command
 ```
-install.sh
+sh install.sh
 ```
-The script will ask you informations to set up your database and run the necessary commands
+The script will ask you informations to set up your database 
+and will run the necessary commands
 
 
