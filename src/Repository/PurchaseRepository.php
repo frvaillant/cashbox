@@ -41,7 +41,7 @@ class PurchaseRepository extends ServiceEntityRepository
             ->select('SUM(p.totalAmount) total')
             ->getQuery()
             ->getOneOrNullResult();
-        return $result['total'];
+        return ($result['total']) ? $result['total'] : 0;
     }
 
     public function getCurrentCash()
@@ -51,17 +51,18 @@ class PurchaseRepository extends ServiceEntityRepository
         $start = new DateTime($date . 'T00:00:00');
         $end   = new DateTime($date . 'T23:59:59');
 
-        return $this->createQueryBuilder('p')
+        $result = $this->createQueryBuilder('p')
             ->andWhere('p.createdAt >= :start')
             ->setParameter('start', $start)
             ->andWhere('p.createdAt <= :end')
             ->setParameter('end', $end)
-            ->join(PaymentMode::class, 'pm', Join::ON, 'pm.id = p.paymentMode')
+            ->join(PaymentMode::class, 'pm', Join::WITH, 'pm.id = p.paymentMode')
             ->andWhere('pm.identifier = :identifier')
             ->setParameter('identifier', self::CASH)
             ->select('SUM(p.totalAmount) total')
             ->getQuery()
             ->getOneOrNullResult();
+        return ($result['total']) ? $result['total'] : 0;
     }
 
     public function findAllByDate(DateTime $date)

@@ -7,7 +7,7 @@
     <div class="section home grey lighten-3">
         <div class="">
             <div class="row">
-                <div class="col s12 m8 flex flex-products">
+                <div class="col s12 m6 l8 flex flex-products">
                     {% for product in products %}
                     <div class="product {{ product.color }} sidenav-trigger"
                          id="{{ product.id }}"
@@ -24,7 +24,7 @@
                     {% endfor %}
 
                 </div>
-                <div class="col s12 m4 cart-zone">
+                <div class="col s12 m6 l4 cart-zone">
                     <div class="row">
                         <div class="col s12 clock">
                             Nous sommes le <span class="timer" id="clock"></span>
@@ -73,7 +73,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
