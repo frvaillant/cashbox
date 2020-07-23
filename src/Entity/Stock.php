@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use App\Repository\StockRepository;
 use Doctrine\ORM\Mapping as ORM;
+use \DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=StockRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Stock
 {
@@ -67,10 +69,14 @@ class Stock
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    /**
+     * @ORM\PrePersist
+     * @return Extraction
+     * @throws \Exception
+     */
+    public function setUpdatedAt(): self
     {
-        $this->updatedAt = $updatedAt;
-
+        $this->updatedAt = new DateTime('Europe/Paris');
         return $this;
     }
 }

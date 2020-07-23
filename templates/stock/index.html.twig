@@ -3,35 +3,45 @@
 {% block title %}Stock index{% endblock %}
 
 {% block body %}
-    <h1>Stock index</h1>
+<div class="container">
+    <div class="row">
+        <div class="col s12 m3">
+            <div class="row flex flex-center extensive-h">
+                <a href="{{ path('stock_new') }}" class="btn cyan">Ajouter</a>
+            </div>
+        </div>
+        <div class="col s12 m9">
+            <h1>Gestion des stocks</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Quantity</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for stock in stocks %}
-            <tr>
-                <td>{{ stock.id }}</td>
-                <td>{{ stock.quantity }}</td>
-                <td>{{ stock.updatedAt ? stock.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('stock_show', {'id': stock.id}) }}">show</a>
-                    <a href="{{ path('stock_edit', {'id': stock.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th>Quantity</th>
+                        <th>UpdatedAt</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for stock in stocks %}
+                    <tr>
+                        <td>{{ stock.product.name }}</td>
+                        <td>{{ stock.quantity }}</td>
+                        <td>{{ stock.updatedAt ? stock.updatedAt|date('d/m/y') : '' }}</td>
+                        <td>
+                            <a class="btn-floating cyan" href="{{ path('stock_edit', {'id': stock.id}) }}"><i class="material-icons">edit</i></a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
     <a href="{{ path('stock_new') }}">Create new</a>
 {% endblock %}

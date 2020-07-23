@@ -1,11 +1,18 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_admin.html.twig' %}
 
 {% block title %}New Stock{% endblock %}
 
 {% block body %}
-    <h1>Create new Stock</h1>
-
-    {{ include('stock/_form.html.twig') }}
-
-    <a href="{{ path('stock_index') }}">back to list</a>
+<div class="container">
+    <div class="row">
+        <div class="col s12 m3">
+            <div class="row flex flex-center extensive-h">
+            </div>
+        </div>
+        <div class="col s12 m9">
+            <h1>Créer un stock pour</h1>
+            {{ include('stock/_form.html.twig') }}
+        </div>
+    </div>
+</div>
 {% endblock %}
