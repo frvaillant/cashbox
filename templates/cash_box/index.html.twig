@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col s12 m6 l8 flex flex-products">
                     {% for product in products %}
-                    <div class="product {{ product.color }} sidenav-trigger"
+                    <div class="product {{ product.category.color }} sidenav-trigger"
                          id="{{ product.id }}"
                          data-name="{{ product.name }}"
                          data-price="{{ product.price }}"
@@ -17,7 +17,10 @@
                          data-id="{{ product.id }}"
                     >
                         <span class="product-name">{{product.name}}</span>
-                        <span class="product-price white-text">{{product.price}} €</span>
+                        <span class="product-price white-text">
+                            <span class="left {{ product.category.color }}-text">{% if product.stock %}{{ product.stock.quantity }}{% endif %}</span>
+                            <span class="right">{{product.price}} €</span>
+                        </span>
                     </div>
                     {% else %}
                     aucun produit

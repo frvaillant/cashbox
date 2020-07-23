@@ -45,6 +45,8 @@ class Product
      */
     private $stock;
 
+
+
     public function __construct()
     {
         $this->purchaseUnities = new ArrayCollection();
@@ -127,10 +129,6 @@ class Product
         return $this->stock;
     }
 
-    public function getStockQuantity(): ?int
-    {
-        return $this->getStock()->getQuantity();
-    }
 
     public function setStock(Stock $stock): self
     {

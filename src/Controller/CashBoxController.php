@@ -52,7 +52,7 @@ class CashBoxController extends AbstractController
         }
 
 
-        $products = $productRepository->findAllForCashBox();
+            $products = $productRepository->findBy([], ['category' => 'ASC', 'name' => 'ASC']);
             $totalForDay = $purchaseRepository->getTotalByDay();
             $paymentModes = $paymentModeRepository->findAll();
             return $this->render('cash_box/index.html.twig', [
