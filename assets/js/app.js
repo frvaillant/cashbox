@@ -11,6 +11,7 @@ import '../scss/app.scss';
 require('./materialize.js');
 require('./materialiseInits.js');
 require('./Timer');
+require('./CashReturn');
 require('./productAdder');
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.

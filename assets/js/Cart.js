@@ -26,10 +26,4 @@ export class Cart {
     addToCart(purchase) {
         this.setCart(purchase)
     }
-
-    removeFromCart(key) {
-        let cart = this.getCart();
-        delete cart[key];
-        this.setCart(cart)
-    }
 }

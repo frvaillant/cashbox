@@ -1,4 +1,5 @@
 import axios from "axios";
+import {CashReturn} from "./CashReturn"
 
 export class Validator {
     constructor(localName) {
@@ -32,7 +33,22 @@ export class Validator {
         axios.post(url, data)
             .then(response => {
                 if (response.status === 200) {
-                    window.location.href='/cashbox'
+                    const cashReturnModal = document.getElementById('cashreturn')
+                    const cashId = cashReturnModal.dataset.trigger
+                    if (cashId === this.getPaymentMode()) {
+                        const cashReturn = new CashReturn()
+                        cashReturn.init()
+                        const modalcashReturn = M.Modal.init(cashReturnModal, {
+                            onCloseEnd: function() {
+                                window.location.href='/cashbox'
+                            }
+                        });
+                        modalcashReturn.open();
+                        document.getElementById('cash-client').value = ''
+                        document.getElementById('cash-client').focus()
+                    } else {
+                        window.location.href='/cashbox'
+                    }
                 }
                 else {
                     M.toast({html:'Une erreur est survenue', classes:'red'})

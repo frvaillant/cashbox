@@ -51,7 +51,7 @@ class CashBoxController extends AbstractController
             return $this->redirectToRoute('cash_box');
         }
 
-
+            $cashPayment = $paymentModeRepository->findOneByIdentifier('CASH');
             $products = $productRepository->findBy([], ['category' => 'ASC', 'name' => 'ASC']);
             $totalForDay = $purchaseRepository->getTotalByDay();
             $paymentModes = $paymentModeRepository->findAll();
@@ -63,6 +63,7 @@ class CashBoxController extends AbstractController
                 'form' => $form->createView(),
                 'cash_count' => $cashCount,
                 'formcash' => $formCash->createView(),
+                'cashId' => $cashPayment->getId()
             ]);
 
 

@@ -102,6 +102,23 @@
         </div>
     </div>
 
+
+    <div id="cashreturn" class="modal" data-trigger="{{ cashId }}">
+        <div class="modal-content">
+            <h4>Rendu de monnaie</h4>
+            <p>Saisissez le montant que le client vous donne</p>
+            <input type="hidden" id="cart-amount">
+            <input type="number" class="biginput" id="cash-client">
+            <div class="row">
+                <h6>Rendu :</h6>
+                <input type="text" class="readonly" id="cash-return" readonly>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fermer</a>
+        </div>
+    </div>
+
     {% include 'cash_box/_product_add.html.twig' %}
 
 {% endblock %}

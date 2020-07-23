@@ -84,3 +84,20 @@
     }
   }
 }
+.modal {
+  input {
+    &.readonly {
+      width: 15%;
+      border: none;
+      border-radius: 5px;
+      font-size: 3rem;
+    }
+    &.biginput {
+      width: 15%;
+      border:1px solid $shadow;
+      padding:15px 10px;
+      font-size: 3rem;
+      border-radius:7px;
+    }
+  }
+}
