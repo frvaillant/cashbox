@@ -69,7 +69,7 @@ class CashFundController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('cash_fund_index');
+            return $this->redirectToRoute('admin_panel');
         }
 
         return $this->render('cash_fund/edit.html.twig', [
@@ -89,6 +89,6 @@ class CashFundController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('cash_fund_index');
+        return $this->redirectToRoute('admin_panel');
     }
 }

@@ -31,6 +31,16 @@ export class Calculator {
             buttons[i].addEventListener('click', () => {
                 this.setQuantity(buttons[i].dataset.value)
             })
+
+            buttons[i].addEventListener('mousedown', () => {
+                buttons[i].classList.add('pushed')
+            })
+            buttons[i].addEventListener('mouseup', () => {
+                buttons[i].classList.remove('pushed')
+            })
+            buttons[i].addEventListener('mouseout', () => {
+                buttons[i].classList.remove('pushed')
+            })
         }
     }
 

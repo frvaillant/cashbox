@@ -1,4 +1,15 @@
 nav {
+  a {
+    transition:all 0.2s ease-in-out;
+    &.brand-logo {
+      &:hover {
+        transform:scale(1.1);
+        color:black;
+      }
+    }
+  }
+  height:74px;
+  border-bottom:10px solid $dark-teal;
   h5 {
     font-family: $bebas;
     font-size:2rem;

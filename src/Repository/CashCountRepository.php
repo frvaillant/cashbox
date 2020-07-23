@@ -36,7 +36,7 @@ class CashCountRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult()
             ;
-        return $result['amount'];
+        return ($result) ? $result['amount'] : null;
     }
 
     // /**

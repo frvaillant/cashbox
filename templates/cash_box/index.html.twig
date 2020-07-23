@@ -33,7 +33,7 @@
                             Nous sommes le <span class="timer" id="clock"></span>
                         </div>
                         <div class="col s12 total-ticket-zone">
-                            <table class="total-day">
+                            <table class="total-day no-bd">
                                 <tr>
                                     <td class="total-title">Total du jour</td>
                                     <td><span class="bolder" id="total-day">{{total}}</span> €</td>
@@ -43,7 +43,7 @@
                     </div>
                     <div class="row">
                         <div class="col s10 ticket-table">
-                            <table id="ticket" class="white">
+                            <table id="ticket" class="white striped ticket">
                             </table>
                             <table id="actions" class="white hide">
                                 <tr>
@@ -56,12 +56,11 @@
                                                 </label><br>
                                             {% endfor %}
                                         </form>
-
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="3" class="left-align">
-                                        <a class="btn purchase pink" id="valid-purchase-btn">valider</a>
+                                        <a class="btn btn-large purchase pink" id="valid-purchase-btn">valider</a>
                                     </td>
                                     <td class="right-align bolder total-ticket" id="totalCell"> </td>
                                 </tr>
@@ -71,7 +70,6 @@
                                     </td>
                                 </tr>
                             </table>
-
                         </div>
                     </div>
                 </div>
@@ -101,7 +99,6 @@
             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fermer</a>
         </div>
     </div>
-
 
     <div id="cashreturn" class="modal" data-trigger="{{ cashId }}">
         <div class="modal-content">

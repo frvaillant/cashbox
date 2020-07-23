@@ -46,9 +46,14 @@
       width:250px;
       margin-left:calc((100% - 230px) / 2);
       .number {
+        box-shadow:2px 2px 3px $shadow-light;
         @include button();
         &:hover {
           cursor: pointer;
+        }
+        &.pushed {
+          box-shadow:none;
+          transform:scale(0.93);
         }
       }
       .eraser {

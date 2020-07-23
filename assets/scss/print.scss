@@ -1,0 +1,28 @@
+@media print {
+  .toprint {
+    width:70%;
+    margin-left:10%;
+    font-size:13px;
+    table {
+      tr {
+        td {
+          padding: 5px 5px;
+        }
+      }
+    }
+  }
+  nav {
+    display:none;
+  }
+  .noprint {
+    display:none;
+  }
+  #printer {
+    display:none;
+  }
+  .sf-toolbar, .sf-minitoolbar {
+    display: none;
+  }
+}
+
+

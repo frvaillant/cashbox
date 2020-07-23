@@ -57,14 +57,25 @@
   }
 }
 
+.ticket-table {
+  .ticket {
+    tr {
+      td {
+        font-size:1.2rem;
+        font-weight: 600;
+      }
+    }
+  }
+}
+#actions {
+  #totalCell {
+    font-size: 2rem;
+  }
+}
+
 .cart-zone {
   .total-ticket-zone {
     margin-left:20px;
-    #ticket {
-      .total-ticket {
-        font-size: 2rem;
-      }
-    }
   }
   .clock {
     font-weight: 600;
@@ -74,6 +85,14 @@
     }
   }
   table {
+    &.no-bd {
+      tr {
+        border:none;
+        td {
+          border:none;
+        }
+      }
+    }
     &.total-day {
       tr {
         td {

@@ -9,19 +9,24 @@
         </div>
     {% endif %}
 
-    <h3 class="">Merci de vous identifier</h3>
-    <label for="inputUsername">Username</label>
+    <div class="row center-align">
+        <i class="material-icons white-text medium">vpn_key</i>
+    </div>
+
+    <label for="inputUsername">Identifiant</label>
     <input type="text" value="" name="username" id="inputUsername" class="form-control" required >
-    <label for="inputPassword">Password</label>
+    <label for="inputPassword">Mot de passe</label>
     <input type="password" name="password" id="inputPassword" class="form-control" required>
 
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
+    <!--
     <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
+        Connexion
     </button>
-    <a href="{{ path('cash_box') }}" class="btn btn-lg btn-primary">
-        Sign in
+    -->
+    <a href="{{ path('cash_box') }}" class="btn btn-large btn-primary black">
+        Connexion
     </a>
 </form>
