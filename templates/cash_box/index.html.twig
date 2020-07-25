@@ -92,6 +92,10 @@
     <div id="cashcount" class="modal">
         <div class="modal-content">
             <h4>Comptage de la caisse</h4>
+            <div class="alert-box pink white-text bolder hide" id="count-check-alert">
+                Vous avez déja compté la caisse aujourd'hui : <span id="last-count"></span><br>
+                C'est le dernier montant relevé qui est pris en compte
+            </div>
             <p>Saisissez le montant d'espèces que vous comptez dans la caisse</p>
             {{ include('cash_count/_form.html.twig') }}
         </div>

@@ -37,6 +37,7 @@ class CashCountController extends AbstractController
         $response = new JsonResponse();
         if ($cashCountRepository->getTotayCashCount()) {
             $response->setStatusCode(Response::HTTP_OK);
+            $response->setData(['count' => $cashCountRepository->getTotayCashCount()]);
         } else {
             $response->setStatusCode(Response::HTTP_NO_CONTENT);
         }
