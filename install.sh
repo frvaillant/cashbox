@@ -7,9 +7,9 @@ then
   read folder
   chmod -R 755 $folder
   cp $folder/.env $folder/.env.local
-  echo 'Your Sql UserName : '
+  echo 'Your SQL login : '
   read username
-  echo 'Your sql password : '
+  echo 'Your SQL password : '
   read password
   echo 'database name : '
   read databasename
