@@ -1,11 +1,37 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_admin.html.twig' %}
 
 {% block title %}New User{% endblock %}
 
 {% block body %}
-    <h1>Create new User</h1>
+<div class="container">
+    <div class="row">
+        <div class="col s12 m3">
+            <div class="row flex flex-center extensive-h">
 
-    {{ include('user/_form.html.twig') }}
+            </div>
+        </div>
+        <div class="col s12 m9">
+            <h1>Ajouter un utilisateur</h1>
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class=" col s12 left-align flashes {{ type }} {% if type == 'success' %} cyan {% else %} red {% endif %}">
+                        <p>
+                            <span class="bolder white-text flash-{{ type }}">
+                                {% if type == 'success' %}
+                                    <i class="material-icons white-text left">check</i>
+                                {% else %}
+                                    <i class="material-icons white-text left">error</i>
+                                {% endif %}
 
-    <a href="{{ path('user_index') }}">back to list</a>
+                                {{ message }}
+                            </span>
+                        </p>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            <span class="bolder">Tous les champs doivent être remplis</span>
+            {{ include('user/_form.html.twig') }}
+        </div>
+    </div>
+</div>
 {% endblock %}

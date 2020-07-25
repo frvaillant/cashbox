@@ -14,7 +14,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use \DateTime;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+
+/**
+ * Class PurchaseController
+ * @package App\Controller
+ * @IsGranted("ROLE_USER")
+ */
 class PurchaseController extends AbstractController
 {
     /**
