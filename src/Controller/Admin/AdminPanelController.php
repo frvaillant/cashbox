@@ -7,6 +7,7 @@ use App\Repository\CashFundRepository;
 use App\Repository\ExtractionRepository;
 use App\Repository\PurchaseRepository;
 use App\Repository\PurchaseUnityRepository;
+use App\Repository\RefundRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use \DateTime;
@@ -28,7 +29,8 @@ class AdminPanelController extends AbstractController
         PurchaseRepository $purchaseRepository,
         PurchaseUnityRepository $purchaseUnityRepository,
         CashCountRepository $cashCountRepository,
-        ExtractionRepository $extractionRepository
+        ExtractionRepository $extractionRepository,
+        RefundRepository $refundRepository
     ) {
         $today = new DateTime('now');
         $totalAmountToday = $purchaseRepository->getTotalByDay($today);
@@ -38,8 +40,9 @@ class AdminPanelController extends AbstractController
         $cashFund = $cashFundRepository->getCashFundParams();
         $cashToday = $purchaseRepository->getCurrentCash();
         $totalExtractions = $extractionRepository->getTotalExtractions();
-        $totalCashInBox = $cashToday - $totalExtractions;
         $todayCashCount = $cashCountRepository->getTotayCashCount();
+        $totalRefundToday = $refundRepository->getTotalRefundByDate();
+        $totalCashInBox = $cashToday - $totalExtractions - $totalRefundToday;
 
         $isCountOk = ($totalCashInBox + $cashFundRepository->getCashFund() - $todayCashCount === 0.0);
 
@@ -55,6 +58,7 @@ class AdminPanelController extends AbstractController
             'cash_in_box'          => $totalCashInBox + $cashFundRepository->getCashFund(),
             'today_cash_count'     => $todayCashCount,
             'is_count_ok'          => $isCountOk,
+            'total_refund'         => $totalRefundToday,
         ]);
     }
 }

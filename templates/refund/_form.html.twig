@@ -1,0 +1,28 @@
+{{ form_start(form_refund) }}
+<div class="row">
+    <div class="col s6">
+        <label>Remplir le montant</label>
+        {{ form_widget(form_refund.amount) }}
+    </div>
+    <div class="col s6">
+        si c'est un retour produit<br>
+        <a href="#" class="btn cyan" id="refund-product-btn">cliquer ici</a>
+    </div>
+</div>
+
+<div class="row hide" id="refund-product-row">
+    <input type="hidden" id="refund-product-price">
+    <div class="col s6">
+        <label>Choisir un produit</label>
+        {{ form_widget(form_refund.product) }}
+    </div>
+    <div class="col s6">
+        <label>Remplir la quantité</label>
+        {{ form_widget(form_refund.quantity) }}
+    </div>
+</div>
+<div class="row">
+    <button class="btn cyan">enregistrer</button>
+</div>
+
+{{ form_end(form_refund) }}

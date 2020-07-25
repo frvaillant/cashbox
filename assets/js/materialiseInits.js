@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const modals = document.querySelectorAll('.modal');
     M.Modal.init(modals);
 
+    const tooltipped = document.querySelectorAll('.tooltipped');
+    M.Tooltip.init(tooltipped);
+
     if(document.getElementById('printer')) {
         document.getElementById('printer').addEventListener('click', () => {
             window.print();

@@ -120,6 +120,21 @@
         </div>
     </div>
 
+
+    <div id="refund" class="modal">
+        <div class="modal-content">
+            <h4>Effectuer un remboursement</h4>
+            <div class="row">
+                {% include 'refund/_form.html.twig' %}
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fermer</a>
+        </div>
+    </div>
+
+
+
     {% include 'cash_box/_product_add.html.twig' %}
 
 {% endblock %}

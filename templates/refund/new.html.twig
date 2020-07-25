@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Refund{% endblock %}
+
+{% block body %}
+    <h1>Create new Refund</h1>
+
+    {{ include('refund/_form.html.twig') }}
+
+    <a href="{{ path('refund_index') }}">back to list</a>
+{% endblock %}
