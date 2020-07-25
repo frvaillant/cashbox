@@ -44,7 +44,7 @@
                         {%  if total_refund > 0 %}
                         <tr>
                             <td>Total remboursements</td>
-                            <td class="bolder right-align">{{total_refund}} €</td>
+                            <td class="bolder right-align">- {{total_refund}} €</td>
                             <td></td>
                         </tr>
                         {% endif %}
@@ -107,21 +107,24 @@
                         </td>
                     </tr>
                     {% endfor %}
-                    <tr>
-                        <td colspan="3" class="bolder grey lighten-4 right-align">
-                            {{ total_today}} €
-                        </td>
-                    </tr>
                     {% if  total_refund > 0  %}
+                        <tr>
+                            <td colspan="2" class="bolder red lighten-4 right-align">
+                                Remboursements
+                            </td>
+                            <td class="bolder red lighten-4 right-align">
+                                {{ total_refund }} €
+                            </td>
+                        </tr>
+                    {% endif %}
                     <tr>
-                        <td colspan="2" class="bolder red lighten-4 right-align">
-                            Remboursements
+                        <td colspan="2" class="bolder grey lighten-4 right-align">
+                            TOTAL
                         </td>
-                        <td class="bolder red lighten-4 right-align">
-                            {{ total_refund }} €
+                        <td colspan="3" class="bolder grey lighten-4 right-align">
+                            {{ total_today - total_refund }} €
                         </td>
                     </tr>
-                    {% endif %}
                     </tbody>
                 </table>
                 <table>

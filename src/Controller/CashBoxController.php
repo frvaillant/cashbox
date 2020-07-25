@@ -11,6 +11,8 @@ use App\Form\RefundType;
 use App\Repository\PaymentModeRepository;
 use App\Repository\ProductRepository;
 use App\Repository\PurchaseRepository;
+use App\Repository\StockRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -36,7 +38,9 @@ class CashBoxController extends AbstractController
         ProductRepository $productRepository,
         PurchaseRepository $purchaseRepository,
         PaymentModeRepository $paymentModeRepository,
-        Request $request
+        Request $request,
+        EntityManagerInterface $entityManager,
+        StockRepository $stockRepository
     ) {
 
         //Cash extraction
@@ -71,6 +75,11 @@ class CashBoxController extends AbstractController
             $productId = $request->request->get('refund')['product'];
             if ($productId) {
                 $product = $productRepository->findOneById($productId);
+                $stock = $stockRepository->findOneBy(['product' => $product]);
+                if($stock) {
+                    $stock->increaseStock($request->request->get('refund')['quantity']);
+                    $entityManager->persist($stock);
+                }
                 $refund->setProduct($product);
                 $refund->setProductPrice($product->getPrice());
             }
