@@ -42,6 +42,8 @@ class AdminPanelController extends AbstractController
         $totalExtractions = $extractionRepository->getTotalExtractions();
         $todayCashCount = $cashCountRepository->getTotayCashCount();
         $totalRefundToday = $refundRepository->getTotalRefundByDate();
+        $totalRefundWithoutProduct = $refundRepository->findAllByDateWithoutProduct();
+        $totalRefundWithProduct = $refundRepository->findAllByDateWithProduct();
         $totalCashInBox = $cashToday - $totalExtractions - $totalRefundToday;
 
         $isCountOk = ($totalCashInBox + $cashFundRepository->getCashFund() - $todayCashCount === 0.0);
@@ -59,6 +61,8 @@ class AdminPanelController extends AbstractController
             'today_cash_count'     => $todayCashCount,
             'is_count_ok'          => $isCountOk,
             'total_refund'         => $totalRefundToday,
+            'refunds_noproduct'    => $totalRefundWithoutProduct,
+            'refunds_products'     => $totalRefundWithProduct,
         ]);
     }
 }

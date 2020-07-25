@@ -73,14 +73,17 @@ class CashBoxController extends AbstractController
         $formRefund->handleRequest($request);
         if ($formRefund->isSubmitted() && $formRefund->isValid()) {
             $productId = $request->request->get('refund')['product'];
+            $quantity = $request->request->get('refund')['quantity'];
             if ($productId) {
                 $product = $productRepository->findOneById($productId);
+                $refund->setProduct($product);
+                $refund->setQuantity($quantity);
+
                 $stock = $stockRepository->findOneBy(['product' => $product]);
                 if($stock) {
                     $stock->increaseStock($request->request->get('refund')['quantity']);
                     $entityManager->persist($stock);
                 }
-                $refund->setProduct($product);
                 $refund->setProductPrice($product->getPrice());
             }
             $entityManager = $this->getDoctrine()->getManager();

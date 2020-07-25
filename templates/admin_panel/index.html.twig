@@ -157,6 +157,52 @@
                     {% endfor %}
                     </tbody>
                 </table>
+                <table>
+                    <tr class="red lighten-4">
+                        <td class="bolder">
+                            Remboursements
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <thead>
+                    <tr class="red lighten-5">
+                        <td class="bolder">
+                            Produit
+                        </td>
+                        <td class="bolder center-align">
+                            Quantité
+                        </td>
+                        <td class="right-align bolder">
+                            Total du jour
+                        </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="2">
+                                Remboursements sans retour
+                            </td>
+                            <td class="right-align bolder">
+                                {{ refunds_noproduct }} €
+                            </td>
+                        </tr>
+                    {%  for refund in refunds_products %}
+                        <tr>
+                            <td>
+                                {{ refund.product }}
+                            </td>
+                            <td class="center-align">
+                                {{ refund.quantity }}
+                            </td>
+                            <td class="right-align bolder">
+                                {{ refund.total }} €
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
 
             </div>
         </div>
