@@ -96,8 +96,11 @@ class AuthentificatorAuthenticator extends AbstractFormLoginAuthenticator implem
             return new RedirectResponse($targetPath);
         }
 
-        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        $user = $token->getUser();
+        if ($user->isAdmin()) {
+            return new RedirectResponse($this->urlGenerator->generate('admin_panel'));
+        }
+        return new RedirectResponse($this->urlGenerator->generate('cashbox'));
     }
 
     protected function getLoginUrl()

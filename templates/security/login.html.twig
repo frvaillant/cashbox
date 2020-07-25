@@ -1,12 +1,6 @@
 <form method="post">
-    {% if error is defined %}
+    {% if error is defined and error is not null %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
     {% endif %}
 
     <div class="row center-align">
@@ -21,12 +15,8 @@
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
-    <!--
     <button class="btn btn-lg btn-primary" type="submit">
         Connexion
     </button>
-    -->
-    <a href="{{ path('cash_box') }}" class="btn btn-large btn-primary black">
-        Connexion
-    </a>
+
 </form>
