@@ -2,12 +2,14 @@
     <div class="nav-wrapper teal">
         <a href="#" class="brand-logo"><h5>Cashbox 1.0</h5></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="#"  data-target="cashcount" class="modal-trigger"><i class="material-icons left tiny">monetization_on</i> Comptage de caisse</a></li>
+            <li><a href="#" data-target="refund" class="modal-trigger"><i class="material-icons left tiny">undo</i> Rembourser</a></li>
+
+            <li><a href="#"  id="cash-count-button" data-target="cashcount" class="modal-trigger"><i class="material-icons left tiny">monetization_on</i> Comptage de caisse</a></li>
             {% if is_granted('ROLE_ADMIN') %}
             <li><a href="#" data-target="extract-fund" class="modal-trigger"><i class="material-icons left tiny">undo</i> Extraction</a></li>
             <li><a href="{{path('admin_panel')}}"><i class="material-icons left tiny">settings</i> Admin</a></li>
             {% endif %}
-            <li><a href="{{ path('app_logout') }}"><i class="material-icons left tiny">lock</i></a></li>
+            <li><a href="{{ path('app_logout') }}" class="tooltipped" data-position="left" data-tooltip="déconnexion"><i class="material-icons left tiny">lock</i></a></li>
         </ul>
     </div>
 </nav>

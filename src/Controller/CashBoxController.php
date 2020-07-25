@@ -4,31 +4,46 @@ namespace App\Controller;
 
 use App\Entity\CashCount;
 use App\Entity\Extraction;
+use App\Entity\Refund;
 use App\Form\CashCountType;
 use App\Form\ExtractionType;
-use App\Repository\CashCountRepository;
+use App\Form\RefundType;
 use App\Repository\PaymentModeRepository;
 use App\Repository\ProductRepository;
 use App\Repository\PurchaseRepository;
+use App\Repository\StockRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+
+/**
+ * Class CashBoxController
+ * @package App\Controller
+ * @IsGranted("ROLE_USER")
+ */
 class CashBoxController extends AbstractController
 {
+
+    const CASH = 'CASH';
+
     /**
      * @param ProductRepository $productRepository
      * @Route("/cashbox", name="cash_box")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-
     public function index(
         ProductRepository $productRepository,
         PurchaseRepository $purchaseRepository,
         PaymentModeRepository $paymentModeRepository,
-        Request $request
+        Request $request,
+        EntityManagerInterface $entityManager,
+        StockRepository $stockRepository
     ) {
 
+        //Cash extraction
         $extraction = new Extraction();
         $form = $this->createForm(ExtractionType::class, $extraction);
         $form->handleRequest($request);
@@ -40,6 +55,7 @@ class CashBoxController extends AbstractController
             return $this->redirectToRoute('cash_box');
         }
 
+        //Count Cash in the box
         $cashCount = new CashCount();
         $formCash = $this->createForm(CashCountType::class, $cashCount);
         $formCash->handleRequest($request);
@@ -51,7 +67,33 @@ class CashBoxController extends AbstractController
             return $this->redirectToRoute('cash_box');
         }
 
-            $cashPayment = $paymentModeRepository->findOneByIdentifier('CASH');
+        //Refunds
+        $refund = new Refund();
+        $formRefund = $this->createForm(RefundType::class, $refund);
+        $formRefund->handleRequest($request);
+        if ($formRefund->isSubmitted() && $formRefund->isValid()) {
+            $productId = $request->request->get('refund')['product'];
+            $quantity = $request->request->get('refund')['quantity'];
+            if ($productId) {
+                $product = $productRepository->findOneById($productId);
+                $refund->setProduct($product);
+                $refund->setQuantity($quantity);
+
+                $stock = $stockRepository->findOneBy(['product' => $product]);
+                if($stock) {
+                    $stock->increaseStock($request->request->get('refund')['quantity']);
+                    $entityManager->persist($stock);
+                }
+                $refund->setProductPrice($product->getPrice());
+            }
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($refund);
+            $entityManager->flush();
+            return $this->redirectToRoute('cash_box');
+        }
+
+
+            $cashPayment = $paymentModeRepository->findOneByIdentifier(self::CASH);
             $products = $productRepository->findBy([], ['category' => 'ASC', 'name' => 'ASC']);
             $totalForDay = $purchaseRepository->getTotalByDay();
             $paymentModes = $paymentModeRepository->findAll();
@@ -63,7 +105,8 @@ class CashBoxController extends AbstractController
                 'form' => $form->createView(),
                 'cash_count' => $cashCount,
                 'formcash' => $formCash->createView(),
-                'cashId' => $cashPayment->getId()
+                'form_refund' => $formRefund->createView(),
+                'cashId' => $cashPayment->getId(),
             ]);
 
 

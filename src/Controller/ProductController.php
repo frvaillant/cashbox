@@ -6,12 +6,16 @@ use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 
 /**
  * @Route("/product")
+ * @IsGranted("ROLE_ADMIN")
  */
 class ProductController extends AbstractController
 {
@@ -88,5 +92,23 @@ class ProductController extends AbstractController
         }
 
         return $this->redirectToRoute('product_index');
+    }
+
+    /**
+     * @Route("/{id}/price", name="product_price", methods={"GET"})
+     */
+    public function price($id, ProductRepository $productRepository): Response
+    {
+
+        $response = new JsonResponse();
+        $product = $productRepository->findOneById((int)$id);
+        $price = $product->getPrice();
+        if ($price) {
+           $response->setData(['price' => $price]);
+           $response->setStatusCode(Response::HTTP_OK);
+        } else {
+            $response->setStatusCode(Response::HTTP_NO_CONTENT);
+        }
+       return $response;
     }
 }

@@ -7,11 +7,18 @@ use App\Repository\CashFundRepository;
 use App\Repository\ExtractionRepository;
 use App\Repository\PurchaseRepository;
 use App\Repository\PurchaseUnityRepository;
+use App\Repository\RefundRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use \DateTime;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
+/**
+ * Class AdminPanelController
+ * @package App\Controller\Admin
+ * @IsGranted("ROLE_ADMIN")
+ */
 class AdminPanelController extends AbstractController
 {
     /**
@@ -22,7 +29,8 @@ class AdminPanelController extends AbstractController
         PurchaseRepository $purchaseRepository,
         PurchaseUnityRepository $purchaseUnityRepository,
         CashCountRepository $cashCountRepository,
-        ExtractionRepository $extractionRepository
+        ExtractionRepository $extractionRepository,
+        RefundRepository $refundRepository
     ) {
         $today = new DateTime('now');
         $totalAmountToday = $purchaseRepository->getTotalByDay($today);
@@ -32,9 +40,13 @@ class AdminPanelController extends AbstractController
         $cashFund = $cashFundRepository->getCashFundParams();
         $cashToday = $purchaseRepository->getCurrentCash();
         $totalExtractions = $extractionRepository->getTotalExtractions();
-        $totalCashInBox = $cashToday - $totalExtractions;
         $todayCashCount = $cashCountRepository->getTotayCashCount();
-        $isCountOk = ($totalCashInBox + $cashFundRepository->getCashFund() - $todayCashCount === 0);
+        $totalRefundToday = $refundRepository->getTotalRefundByDate();
+        $totalRefundWithoutProduct = $refundRepository->findAllByDateWithoutProduct();
+        $totalRefundWithProduct = $refundRepository->findAllByDateWithProduct();
+        $totalCashInBox = $cashToday - $totalExtractions - $totalRefundToday;
+
+        $isCountOk = ($totalCashInBox + $cashFundRepository->getCashFund() - $todayCashCount === 0.0);
 
         return $this->render('admin_panel/index.html.twig', [
             'controller_name'      => 'AdminPanelController',
@@ -48,6 +60,9 @@ class AdminPanelController extends AbstractController
             'cash_in_box'          => $totalCashInBox + $cashFundRepository->getCashFund(),
             'today_cash_count'     => $todayCashCount,
             'is_count_ok'          => $isCountOk,
+            'total_refund'         => $totalRefundToday,
+            'refunds_noproduct'    => $totalRefundWithoutProduct,
+            'refunds_products'     => $totalRefundWithProduct,
         ]);
     }
 }

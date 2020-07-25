@@ -19,7 +19,7 @@
                     <table>
                     <tr>
                         <td>Montant</td>
-                        <td class="bolder">{{cashfund.amount}}€</td>
+                        <td class="bolder">{{cashfund.amount}} €</td>
                         <td>
                             <a href="{{ path('cash_fund_edit', {'id': cashfund.id}) }}" class="btn-floating cyan">
                                 <i class="material-icons">edit</i>
@@ -33,17 +33,24 @@
                     <table>
                         <tr>
                             <td>Total encaissement espèces</td>
-                            <td class="bolder right-align">{{cash_today}}€</td>
+                            <td class="bolder right-align">{{cash_today}} €</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Total extractions</td>
-                            <td class="bolder right-align">{{extractions}}€</td>
+                            <td class="bolder right-align">{{extractions}} €</td>
                             <td></td>
                         </tr>
+                        {%  if total_refund > 0 %}
+                        <tr>
+                            <td>Total remboursements</td>
+                            <td class="bolder right-align">- {{total_refund}} €</td>
+                            <td></td>
+                        </tr>
+                        {% endif %}
                         <tr class="bolder">
                             <td>Espèces en caisse</td>
-                            <td class="bolder right-align">{{cash_in_box}}€</td>
+                            <td class="bolder right-align">{{cash_in_box}} €</td>
                             <td></td>
                         </tr>
                         <tr class="bolder">
@@ -100,9 +107,22 @@
                         </td>
                     </tr>
                     {% endfor %}
+                    {% if  total_refund > 0  %}
+                        <tr>
+                            <td colspan="2" class="bolder red lighten-4 right-align">
+                                Remboursements
+                            </td>
+                            <td class="bolder red lighten-4 right-align">
+                                {{ total_refund }} €
+                            </td>
+                        </tr>
+                    {% endif %}
                     <tr>
+                        <td colspan="2" class="bolder grey lighten-4 right-align">
+                            TOTAL
+                        </td>
                         <td colspan="3" class="bolder grey lighten-4 right-align">
-                            {{ total_today}} €
+                            {{ total_today - total_refund }} €
                         </td>
                     </tr>
                     </tbody>
@@ -136,6 +156,52 @@
                         </tr>
                     {% endfor %}
                     </tbody>
+                </table>
+                <table>
+                    <tr class="red lighten-4">
+                        <td class="bolder">
+                            Remboursements
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <thead>
+                    <tr class="red lighten-5">
+                        <td class="bolder">
+                            Produit
+                        </td>
+                        <td class="bolder center-align">
+                            Quantité
+                        </td>
+                        <td class="right-align bolder">
+                            Total du jour
+                        </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="2">
+                                Remboursements sans retour
+                            </td>
+                            <td class="right-align bolder">
+                                {{ refunds_noproduct }} €
+                            </td>
+                        </tr>
+                    {%  for refund in refunds_products %}
+                        <tr>
+                            <td>
+                                {{ refund.product }}
+                            </td>
+                            <td class="center-align">
+                                {{ refund.quantity }}
+                            </td>
+                            <td class="right-align bolder">
+                                {{ refund.total }} €
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+
                 </table>
 
             </div>

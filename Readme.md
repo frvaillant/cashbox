@@ -6,7 +6,7 @@ Cashbox is a software to manage cash for little commercial entities
 François VAILLANT
 
 ## Version
-1.0
+1.0 - BETA
 
 ## Stack
  - Symfony
@@ -22,16 +22,16 @@ Mysql
  
 ## How to install
 
-download the repo
+Go in the folder where you want install CashBox
 ```
-git clone https://github.com/frvaillant/cashbox
+cd the_directory_where_you_want_to_install_cashbox
 ```
 run the command
 ```
 sh install.sh
 ```
 The script will ask you informations to set up your database 
-and will run the necessary commands. 
+and will run the necessary commands to setup CashBox. 
 Just after, you'll be ready to use CashBox with two users :
 
 **Admin User**  
