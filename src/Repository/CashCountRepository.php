@@ -33,38 +33,36 @@ class CashCountRepository extends ServiceEntityRepository
             ->setParameter('start', $start)
             ->andWhere('c.createdAt <= :end')
             ->setParameter('end', $end)
+            ->orderBy('c.createdAt', 'DESC')
+            ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult()
             ;
         return ($result) ? $result['amount'] : null;
     }
 
-    // /**
-    //  * @return CashCount[] Returns an array of CashCount objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function hasBeenCountedToday(): bool
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $date = new DateTime('now');
+        $date = $date->format('Y-m-d');
+        $start = new DateTime($date . 'T00:00:00');
+        $end   = new DateTime($date . 'T23:59:59');
 
-    /*
-    public function findOneBySomeField($value): ?CashCount
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
+        $result = $this->createQueryBuilder('c')
+            ->select('c.amount')
+            ->andWhere('c.createdAt >= :start')
+            ->setParameter('start', $start)
+            ->andWhere('c.createdAt <= :end')
+            ->setParameter('end', $end)
+            ->orderBy('c.createAt', 'DESC')
+            ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult()
         ;
+        $response = false;
+        if($result) {
+            $response = true;
+        }
+        return $response;
     }
-    */
 }

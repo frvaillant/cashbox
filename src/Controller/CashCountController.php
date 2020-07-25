@@ -6,6 +6,7 @@ use App\Entity\CashCount;
 use App\Form\CashCountType;
 use App\Repository\CashCountRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,6 +24,20 @@ class CashCountController extends AbstractController
         return $this->render('cash_count/index.html.twig', [
             'cash_counts' => $cashCountRepository->findAll(),
         ]);
+    }
+
+    /**
+     * @Route("/check", name="cash_count_check", methods={"GET"})
+     */
+    public function hasBeenCountedToday(CashCountRepository $cashCountRepository): Response
+    {
+        $response = new JsonResponse();
+        if ($cashCountRepository->getTotayCashCount()) {
+            $response->setStatusCode(Response::HTTP_OK);
+        } else {
+            $response->setStatusCode(Response::HTTP_NO_CONTENT);
+        }
+        return $response;
     }
 
     /**

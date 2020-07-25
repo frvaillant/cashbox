@@ -34,7 +34,8 @@ class AdminPanelController extends AbstractController
         $totalExtractions = $extractionRepository->getTotalExtractions();
         $totalCashInBox = $cashToday - $totalExtractions;
         $todayCashCount = $cashCountRepository->getTotayCashCount();
-        $isCountOk = ($totalCashInBox + $cashFundRepository->getCashFund() - $todayCashCount === 0);
+
+        $isCountOk = ($totalCashInBox + $cashFundRepository->getCashFund() - $todayCashCount === 0.0);
 
         return $this->render('admin_panel/index.html.twig', [
             'controller_name'      => 'AdminPanelController',
