@@ -5,6 +5,7 @@ if [ "$yes" == YES ]
 then
   echo 'Name of the project folder : '
   read folder
+  chmod -R 755 $folder
   cp $folder/.env $folder/.env.local
   echo 'Your Sql UserName : '
   read username
@@ -23,5 +24,6 @@ then
   yarn install
   php bin/console doctrine:database:create
   php bin/console doctrine:migrations:migrate
+  php bin/console doctrine:fixtures:load
   yarn encore prod
 fi
