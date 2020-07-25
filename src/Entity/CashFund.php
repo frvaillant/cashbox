@@ -8,6 +8,7 @@ use \DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=CashFundRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class CashFund
 {
@@ -50,13 +51,14 @@ class CashFund
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt = null): self
+    /**
+     * @ORM\PrePersist
+     * @return Extraction
+     * @throws \Exception
+     */
+    public function setUpdatedAt(): self
     {
-        if (null === $updatedAt) {
-            $updatedAt = new DateTime('now');
-        }
-        $this->updatedAt = $updatedAt;
-
+        $this->updatedAt = new DateTime('now');
         return $this;
     }
 }

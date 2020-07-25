@@ -19,17 +19,32 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        // Création d’un utilisateur de type “collaborateur”
+        // Création d’un utilisateur de type “user”
         $user = new User();
-        $user->setUsername('admin');
-        $user->setFirstName('admin');
-        $user->setLastName('admin');
-        $user->setRoles(['ROLE_ADMIN']);
+        $user->setUsername('user');
+        $user->setFirstName('user');
+        $user->setLastName('user');
+        $user->setRoles(['ROLE_USER']);
         $user->setPassword($this->passwordEncoder->encodePassword(
             $user,
-            'admin'
+            'user'
         ));
         $manager->persist($user);
+
+
+        // Création d’un utilisateur de type “admin”
+        $admin = new User();
+        $admin->setUsername('admin');
+        $admin->setFirstName('admin');
+        $admin->setLastName('admin');
+        $admin->setRoles(['ROLE_ADMIN']);
+        $admin->setPassword($this->passwordEncoder->encodePassword(
+            $admin,
+            'admin'
+        ));
+        $manager->persist($admin);
+
+
         $manager->flush();
     }
 }

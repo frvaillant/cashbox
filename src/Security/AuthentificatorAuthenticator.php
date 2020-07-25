@@ -100,7 +100,7 @@ class AuthentificatorAuthenticator extends AbstractFormLoginAuthenticator implem
         if ($user->isAdmin()) {
             return new RedirectResponse($this->urlGenerator->generate('admin_panel'));
         }
-        return new RedirectResponse($this->urlGenerator->generate('cashbox'));
+        return new RedirectResponse($this->urlGenerator->generate('cash_box'));
     }
 
     protected function getLoginUrl()
