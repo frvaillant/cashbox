@@ -3,7 +3,6 @@ echo 'this program suppose you work with mysql installed @127.0.0.1:3306. Say YE
 read yes
 if [ "$yes" == YES ]
 then
-  git clone https://github.com/frvaillant/cashbox
   folder='cashbox'
   chmod -R 755 "$folder"
   cp "$folder"/.env "$folder"/.env.local

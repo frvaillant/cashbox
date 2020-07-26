@@ -17,7 +17,7 @@ François VAILLANT
 MIT 
 
 ## requirements
-PHP 7.4
+PHP 7.4  
 Mysql 
  
 ## How to install
@@ -26,13 +26,25 @@ Go in the folder where you want install CashBox
 ```
 cd the_directory_where_you_want_to_install_cashbox
 ```
+
+Download the project with 
+```  
+git clone https://github.com/frvaillant/cashbox
+```
+
 run the command
 ```
-sh install.sh
+sh cashbox/install.sh
 ```
 The script will ask you informations to set up your database 
 and will run the necessary commands to setup CashBox. 
-Just after, you'll be ready to use CashBox with two users :
+During the setup, you'll be asked for some caution for database. Say 'y' to all questions.  
+
+When instal is done, go in the cashbox folder `cd cashbox` and run your server.  
+*****
+Enjoy :-)  
+*****
+CashBox comes with two users :
 
 **Admin User**  
 login : admin   
