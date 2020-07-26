@@ -41,6 +41,11 @@ class Purchase
      */
     private $purchaseUnities;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="purchases")
+     */
+    private $event;
+
     public function __construct()
     {
         $this->purchaseUnities = new ArrayCollection();
@@ -117,6 +122,18 @@ class Purchase
                 $purchaseUnity->setPurchase(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): self
+    {
+        $this->event = $event;
 
         return $this;
     }
