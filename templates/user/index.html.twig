@@ -1,6 +1,5 @@
 {% extends 'base_admin.html.twig' %}
 
-{% block title %}User index{% endblock %}
 
 {% block body %}
 <div class="container">
@@ -35,7 +34,9 @@
                             <a href="{{ path('user_edit', {'id': user.id}) }}" class="btn-floating cyan"><i class="material-icons">edit</i></a>
                         </td>
                         <td>
+                            {% if user.username != 'admin' %}
                             {{ include('user/_delete_form.html.twig') }}
+                            {% endif %}
                         </td>
                     </tr>
                 {% else %}
