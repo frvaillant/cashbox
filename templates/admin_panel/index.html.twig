@@ -8,13 +8,13 @@
                 <h1>Gérer votre caisse</h1>
             </div>
             <div class="col s12 m4">
-                    {% for label, messages in app.flashes(['success', 'error']) %}
-                        {% for message in messages %}
-                            <div class="flash-{{ label }} alert-date red bolder white-text">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
+                {% for label, messages in app.flashes(['success', 'error']) %}
+                    {% for message in messages %}
+                        <div class="flash-{{ label }} alert-date red bolder white-text">
+                            {{ message }}
+                        </div>
                     {% endfor %}
+                {% endfor %}
             </div>
         </div>
 
