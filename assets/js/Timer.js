@@ -19,7 +19,7 @@ class Timer {
             "Décembre",
         ]
         const date = new Date();
-        return date.getDay() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear()
+        return date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear()
     }
 
     getTime() {
