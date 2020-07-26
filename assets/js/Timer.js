@@ -24,7 +24,10 @@ class Timer {
 
     getTime() {
         const date = new Date();
-        return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
+        let hour = (date.getHours() < 10) ? '0' + date.getHours() : date.getHours()
+        let min = (date.getMinutes() < 10) ? '0' + date.getMinutes() : date.getMinutes()
+        let sec = (date.getSeconds() < 10) ? '0' + date.getSeconds() : date.getSeconds()
+        return hour + ':' + min + ':' + sec
     }
 
     getDateTime () {
