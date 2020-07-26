@@ -8,13 +8,6 @@
                 <h1>Gérer votre caisse</h1>
             </div>
             <div class="col s12 m4">
-                    {% for label, messages in app.flashes(['success', 'error']) %}
-                        {% for message in messages %}
-                            <div class="flash-{{ label }} alert-date red bolder white-text">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    {% endfor %}
             </div>
         </div>
 
@@ -81,7 +74,7 @@
             <div class="col m6 s12 offset-m1 toprint" >
                 <div class="col s6">
                     <form method="POST" action="{{ path('admin_panel_date') }}">
-                        <input type="text" name="date" placeholder="jj/mm/aaaa">
+                        <input type="text" name="date">
                         <label>Choisir une date</label>
                     </form>
                 </div>
