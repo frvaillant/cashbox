@@ -1,4 +1,7 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    <label>Nom de la catégorie</label>
+    {{ form_widget(form.name) }}
+    <label>Choisir une couleur</label>
+    {{ form_widget(form.color) }}
     <button class="btn cyan">Enregistrer</button>
 {{ form_end(form) }}

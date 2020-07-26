@@ -1,4 +1,9 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn cyan">enregistrer</button>
+<div class="row">
+    <div class="col s6">
+        {{ form_widget(form.amount) }}
+        <button class="btn cyan">enregistrer</button>
+    </div>
+</div>
+
 {{ form_end(form) }}

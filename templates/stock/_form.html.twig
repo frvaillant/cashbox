@@ -1,4 +1,13 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+<div class="col s12">
+    <label>Produit</label>
+    {{ form_widget(form.product) }}
+</div>
+
+<div class="col s12">
+    <label>Quantité en stock</label>
+    {{ form_widget(form.quantity) }}
+</div>
+
     <button class="btn cyan">enregistrer</button>
 {{ form_end(form) }}

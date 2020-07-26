@@ -33,12 +33,14 @@
                             </a>
                         </td>
                         <td>
+                            {% if payment_mode.identifier != 'CASH' %}
                             {{ include('payment_mode/_delete_form.html.twig') }}
+                            {% endif %}
                         </td>
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="4">Aucun mooyen de paiement enregistré</td>
+                        <td colspan="4">Aucun moyen de paiement enregistré</td>
                     </tr>
                 {% endfor %}
                 </tbody>

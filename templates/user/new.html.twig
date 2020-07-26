@@ -29,8 +29,12 @@
                     </div>
                 {% endfor %}
             {% endfor %}
-            <span class="bolder">Tous les champs doivent être remplis</span>
-            {{ include('user/_form.html.twig') }}
+            <div class="row">
+                <span class="bolder">Tous les champs doivent être remplis</span>
+            </div>
+            <div class="row">
+                {{ include('user/_form.html.twig') }}
+            </div>
         </div>
     </div>
 </div>

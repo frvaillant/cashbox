@@ -1,4 +1,27 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+<div class="col s12">
+    <label>Identifiant</label>
+    {{ form_widget(form.username) }}
+</div>
+<div class="col s12">
+    <label>Role</label>
+    {{ form_widget(form.roles) }}
+</div>
+
+<div class="col s12">
+    <label>Mot de passe (lors de l'édition, si vous laissez vide, le mot de passe ne sera pas changé)</label>
+    {{ form_widget(form.password) }}
+</div>
+
+<div class="col s12">
+    <label>Prénom</label>
+    {{ form_widget(form.firstName) }}
+</div>
+
+<div class="col s12">
+    <label>Nom</label>
+    {{ form_widget(form.lastName) }}
+</div>
+
     <button class="btn cyan">enregistrer</button>
 {{ form_end(form) }}

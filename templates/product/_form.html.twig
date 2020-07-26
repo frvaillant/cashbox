@@ -1,4 +1,10 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    <label>Nom du produit </label>
+    {{ form_widget(form.name) }}
+<label>Prix de vente </label>
+{{ form_widget(form.price) }}
+<label>Catégorie </label>
+{{ form_widget(form.category) }}
+
     <button class="btn cyan">enregistrer</button>
 {{ form_end(form) }}
