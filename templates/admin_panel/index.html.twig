@@ -79,17 +79,19 @@
                 </div>
             </div>
             <div class="col m6 s12 offset-m1 toprint" >
-                <div class="col s6">
-                    <form method="POST" action="{{ path('admin_panel_date') }}">
-                        <input type="text" name="date" placeholder="jj/mm/aaaa">
-                        <label>Choisir une date</label>
-                    </form>
+                {{ form_start(dateform) }}
+                <div class="col s4">
+                    {{ form_widget(dateform) }}
                 </div>
+                <div class="col s2">
+                    <button class="btn-floating"><i class="material-icons">search</i></button>
+                </div>
+                {{ form_end(dateform) }}
                 <div class="col s6 right-align">
                     <a href="#" class="btn-floating cyan" id="printer"><i class="material-icons">local_printshop</i></a>
                 </div>
                 <div class="col s12 left-align">
-                    <h4>Journal de caisse du {{ "now"|date("d-m-Y") }}</h4>
+                    <h4>Journal de caisse du {{ date|date('d/m/Y') }}</h4>
                 </div>
                 <table>
                     <thead>
