@@ -35,33 +35,30 @@ class AdminPanelController extends AbstractController
         RefundRepository $refundRepository,
         Request $request
     ) {
-
-
         $form = $this->createForm(DateBoxType::class);
         $form->handleRequest($request);
-        $today = new DateTime('now');
+        $date = new DateTime('now');
         if ($form->isSubmitted() && $form->isValid()) {
-            $today = $form->getData('date')['date'];
+            $date = $form->getData('date')['date'];
         }
 
-
-        $totalAmountToday          = $purchaseRepository->getTotalByDay($today);
-        $purchasesToday            = $purchaseRepository->findAllByDate($today);
-        $purchasesByPayment        = $purchaseRepository->getTotalByPaymentModeToday($today);
-        $purchasesByProduct        = $purchaseUnityRepository->getTotalByProductToday($today);
+        $totalAmountToday          = $purchaseRepository->getTotalByDay($date);
+        $purchasesToday            = $purchaseRepository->findAllByDate($date);
+        $purchasesByPayment        = $purchaseRepository->getTotalByPaymentModeToday($date);
+        $purchasesByProduct        = $purchaseUnityRepository->getTotalByProductToday($date);
         $cashFund                  = $cashFundRepository->getCashFundParams();
         $cashToday                 = $purchaseRepository->getCurrentCash();
-        $totalExtractions          = $extractionRepository->getTotalExtractions($today);
+        $totalExtractions          = $extractionRepository->getTotalExtractions($date);
         $todayCashCount            = $cashCountRepository->getTotayCashCount();
-        $totalRefundToday          = $refundRepository->getTotalRefundByDate($today);
-        $totalRefundWithoutProduct = $refundRepository->findAllByDateWithoutProduct($today);
-        $totalRefundWithProduct    = $refundRepository->findAllByDateWithProduct($today);
+        $totalRefundToday          = $refundRepository->getTotalRefundByDate($date);
+        $totalRefundWithoutProduct = $refundRepository->findAllByDateWithoutProduct($date);
+        $totalRefundWithProduct    = $refundRepository->findAllByDateWithProduct($date);
         $totalCashInBox            = $cashToday - $totalExtractions - $totalRefundToday + $cashFundRepository->getCashFund();
         $isCountOk = (0.0 === $totalCashInBox + $cashFundRepository->getCashFund() - $todayCashCount);
 
         return $this->render('admin_panel/index.html.twig', [
             'dateform'             => $form->createView(),
-            'date'                 => $today,
+            'date'                 => $date,
             'controller_name'      => 'AdminPanelController',
             'total_today'          => $totalAmountToday,
             'purchases'            => $purchasesToday,
