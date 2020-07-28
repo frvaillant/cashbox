@@ -5,7 +5,14 @@
     <div class="container">
         <div class="row noprint">
             <div class="col s12 m8">
-                <h1>Gérer votre caisse</h1>
+                {{ form_start(dateform) }}
+                <div class="col s4">
+                    {{ form_widget(dateform) }}
+                </div>
+                <div class="col s2">
+                    <button class="btn-floating"><i class="material-icons">search</i></button>
+                </div>
+                {{ form_end(dateform) }}
             </div>
             <div class="col s12 m4">
                 {% for label, messages in app.flashes(['success', 'error']) %}
@@ -79,15 +86,7 @@
                 </div>
             </div>
             <div class="col m6 s12 offset-m1 toprint" >
-                {{ form_start(dateform) }}
-                <div class="col s4">
-                    {{ form_widget(dateform) }}
-                </div>
-                <div class="col s2">
-                    <button class="btn-floating"><i class="material-icons">search</i></button>
-                </div>
-                {{ form_end(dateform) }}
-                <div class="col s6 right-align">
+                <div class="col s12 right-align">
                     <a href="#" class="btn-floating cyan" id="printer"><i class="material-icons">local_printshop</i></a>
                 </div>
                 <div class="col s12 left-align">

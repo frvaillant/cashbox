@@ -5,7 +5,7 @@ if [ "$yes" == YES ]
 then
   folder='cashbox'
   chmod -R 755 "$folder"
-  cp "$folder"/.env "$folder"/.env.local
+  touch "$folder"/.env.local
   echo 'Your SQL login : '
   read username
   echo 'Your SQL password : '

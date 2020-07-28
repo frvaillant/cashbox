@@ -45,20 +45,19 @@ class AdminPanelController extends AbstractController
         }
 
 
-        $totalAmountToday = $purchaseRepository->getTotalByDay($today);
-        $purchasesToday   = $purchaseRepository->findAllByDate($today);
-        $purchasesByPayment = $purchaseRepository->getTotalByPaymentModeToday($today);
-        $purchasesByProduct = $purchaseUnityRepository->getTotalByProductToday($today);
-        $cashFund = $cashFundRepository->getCashFundParams();
-        $cashToday = $purchaseRepository->getCurrentCash();
-        $totalExtractions = $extractionRepository->getTotalExtractions($today);
-        $todayCashCount = $cashCountRepository->getTotayCashCount();
-        $totalRefundToday = $refundRepository->getTotalRefundByDate($today);
+        $totalAmountToday          = $purchaseRepository->getTotalByDay($today);
+        $purchasesToday            = $purchaseRepository->findAllByDate($today);
+        $purchasesByPayment        = $purchaseRepository->getTotalByPaymentModeToday($today);
+        $purchasesByProduct        = $purchaseUnityRepository->getTotalByProductToday($today);
+        $cashFund                  = $cashFundRepository->getCashFundParams();
+        $cashToday                 = $purchaseRepository->getCurrentCash();
+        $totalExtractions          = $extractionRepository->getTotalExtractions($today);
+        $todayCashCount            = $cashCountRepository->getTotayCashCount();
+        $totalRefundToday          = $refundRepository->getTotalRefundByDate($today);
         $totalRefundWithoutProduct = $refundRepository->findAllByDateWithoutProduct($today);
-        $totalRefundWithProduct = $refundRepository->findAllByDateWithProduct($today);
-        $totalCashInBox = $cashToday - $totalExtractions - $totalRefundToday;
-
-        $isCountOk = ($totalCashInBox + $cashFundRepository->getCashFund() - $todayCashCount === 0.0);
+        $totalRefundWithProduct    = $refundRepository->findAllByDateWithProduct($today);
+        $totalCashInBox            = $cashToday - $totalExtractions - $totalRefundToday + $cashFundRepository->getCashFund();
+        $isCountOk = (0.0 === $totalCashInBox + $cashFundRepository->getCashFund() - $todayCashCount);
 
         return $this->render('admin_panel/index.html.twig', [
             'dateform'             => $form->createView(),
@@ -71,7 +70,7 @@ class AdminPanelController extends AbstractController
             'cashfund'             => $cashFund,
             'cash_today'           => $cashToday,
             'extractions'          => $totalExtractions,
-            'cash_in_box'          => $totalCashInBox + $cashFundRepository->getCashFund(),
+            'cash_in_box'          => $totalCashInBox,
             'today_cash_count'     => $todayCashCount,
             'is_count_ok'          => $isCountOk,
             'total_refund'         => $totalRefundToday,
