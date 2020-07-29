@@ -15,11 +15,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/product")
- * @IsGranted("ROLE_ADMIN")
  */
 class ProductController extends AbstractController
 {
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/", name="product_index", methods={"GET"})
      */
     public function index(ProductRepository $productRepository): Response
@@ -30,6 +30,7 @@ class ProductController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/new", name="product_new", methods={"GET","POST"})
      */
     public function new(Request $request, ProductRepository $productRepository): Response
@@ -51,6 +52,7 @@ class ProductController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/{id}", name="product_show", methods={"GET"})
      */
     public function show(Product $product): Response
@@ -61,6 +63,7 @@ class ProductController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/{id}/edit", name="product_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Product $product): Response
@@ -81,6 +84,7 @@ class ProductController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/{id}", name="product_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Product $product): Response
@@ -95,14 +99,15 @@ class ProductController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/{id}/price", name="product_price", methods={"GET"})
      */
     public function price($id, ProductRepository $productRepository): Response
     {
-
         $response = new JsonResponse();
-        $product = $productRepository->findOneById((int)$id);
+        $product = $productRepository->findOneById($id);
         $price = $product->getPrice();
+
         if ($price) {
            $response->setData(['price' => $price]);
            $response->setStatusCode(Response::HTTP_OK);
