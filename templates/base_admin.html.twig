@@ -9,14 +9,14 @@
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
         <link rel="shortcut icon" type="image/png" href="{{ asset('build/favicon.png') }}"/>
-
     </head>
     <body>
     {% include 'admin_panel/_admin_navbar.html.twig' %}
 
     {% block body %}{% endblock %}
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
     </body>
 </html>
