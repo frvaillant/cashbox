@@ -21,6 +21,12 @@ then
   yarn install
   php bin/console doctrine:database:create
   php bin/console doctrine:migrations:migrate
-  php bin/console doctrine:fixtures:load
   yarn encore prod
+  echo '*************************************'
+  echo '*************************************'
+  echo '*              CASHBOX              *'
+  echo '*     IS SUCCESSFULLY INSTALLED     *'
+  echo '*     WE HOPE YOU WILL ENJOY IT     *'
+  echo '*************************************'
+  echo '*************************************'
 fi
