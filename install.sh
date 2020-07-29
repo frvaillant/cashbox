@@ -1,7 +1,7 @@
 #!/bin/bash
 echo 'this program suppose you work with mysql installed @127.0.0.1:3306. Say YES to continue'
 read yes
-if [ "$yes" == YES ]
+if [ "$yes" = 'YES' ]
 then
   folder='cashbox'
   chmod 755 "$folder"
