@@ -9,7 +9,7 @@ then
   echo 'Your SQL login : '
   read username
   echo 'Your SQL password : '
-  read password
+  read -s password
   echo 'database name : '
   read databasename
   setterEnv=APP_ENV=prod
