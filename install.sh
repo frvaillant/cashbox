@@ -12,12 +12,10 @@ then
   read password
   echo 'database name : '
   read databasename
+  setterEnv=APP_ENV=prod
   setterDb=DATABASE_URL=mysql://$username:$password@127.0.0.1:3306/$databasename
-  setterEnd="###< doctrine/doctrine-bundle ###"
-  sed '/DATABASE_URL=mysql:///d' "$folder"/.env.local
-  sed '/###< doctrine/doctrine-bundle ###/d' "$folder"/.env.local
+  echo "$setterEnv" >> "$folder"/.env.local
   echo "$setterDb" >> "$folder"/.env.local
-  echo "$setterEnd" >> "$folder"/.env.local
   cd "$folder" || exit
   composer install
   yarn install
