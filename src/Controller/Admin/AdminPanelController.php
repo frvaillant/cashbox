@@ -47,7 +47,7 @@ class AdminPanelController extends AbstractController
         $purchasesByPayment        = $purchaseRepository->getTotalByPaymentModeToday($date);
         $purchasesByProduct        = $purchaseUnityRepository->getTotalByProductToday($date);
         $cashFund                  = $cashFundRepository->getCashFundParams();
-        $cashToday                 = $purchaseRepository->getCurrentCash();
+        $cashToday                 = $purchaseRepository->getCurrentCash($date);
         $totalExtractions          = $extractionRepository->getTotalExtractions($date);
         $todayCashCount            = $cashCountRepository->getTotayCashCount();
         $totalRefundToday          = $refundRepository->getTotalRefundByDate($date);

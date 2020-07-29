@@ -11,6 +11,7 @@ use App\Form\RefundType;
 use App\Repository\PaymentModeRepository;
 use App\Repository\ProductRepository;
 use App\Repository\PurchaseRepository;
+use App\Repository\RefundRepository;
 use App\Repository\StockRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,7 +41,8 @@ class CashBoxController extends AbstractController
         PaymentModeRepository $paymentModeRepository,
         Request $request,
         EntityManagerInterface $entityManager,
-        StockRepository $stockRepository
+        StockRepository $stockRepository,
+        RefundRepository $refundRepository
     ) {
 
         //Cash extraction
@@ -93,21 +95,23 @@ class CashBoxController extends AbstractController
         }
 
 
-            $cashPayment = $paymentModeRepository->findOneByIdentifier(self::CASH);
-            $products = $productRepository->findBy([], ['category' => 'ASC', 'name' => 'ASC']);
-            $totalForDay = $purchaseRepository->getTotalByDay();
-            $paymentModes = $paymentModeRepository->findAll();
-            return $this->render('cash_box/index.html.twig', [
-                'products' => $products,
-                'total' => $totalForDay,
-                'payment_modes' => $paymentModes,
-                'extraction' => $extraction,
-                'form' => $form->createView(),
-                'cash_count' => $cashCount,
-                'formcash' => $formCash->createView(),
-                'form_refund' => $formRefund->createView(),
-                'cashId' => $cashPayment->getId(),
-            ]);
+        $cashPayment      = $paymentModeRepository->findOneByIdentifier(self::CASH);
+        $products         = $productRepository->findBy([], ['category' => 'ASC', 'name' => 'ASC']);
+        $totalRefundToday = $refundRepository->getTotalRefundByDate();
+        $totalForDay      = $purchaseRepository->getTotalByDay() - $totalRefundToday;
+        $paymentModes     = $paymentModeRepository->findAll();
+
+        return $this->render('cash_box/index.html.twig', [
+            'products' => $products,
+            'total' => $totalForDay,
+            'payment_modes' => $paymentModes,
+            'extraction' => $extraction,
+            'form' => $form->createView(),
+            'cash_count' => $cashCount,
+            'formcash' => $formCash->createView(),
+            'form_refund' => $formRefund->createView(),
+            'cashId' => $cashPayment->getId(),
+        ]);
 
 
         return $response;

@@ -44,9 +44,11 @@ class PurchaseRepository extends ServiceEntityRepository
         return ($result['total']) ? $result['total'] : 0;
     }
 
-    public function getCurrentCash()
+    public function getCurrentCash($date = null)
     {
-        $date = new DateTime('now');
+        if(null === $date) {
+            $date = new DateTime('now');
+        }
         $date = $date->format('Y-m-d');
         $start = new DateTime($date . 'T00:00:00');
         $end   = new DateTime($date . 'T23:59:59');

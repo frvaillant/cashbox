@@ -15,7 +15,7 @@ class DateBoxType extends AbstractType implements FormTypeInterface
     {
         $builder
             ->add('date', DateType::class, [
-                'label'=>'Chercher une date',
+                'label'=>'Chercher par date',
                 'widget' => 'single_text',
                 'data' => new DateTime(),
             ])
