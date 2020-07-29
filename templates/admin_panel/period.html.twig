@@ -1,0 +1,65 @@
+{% extends 'base_admin.html.twig' %}
+
+
+{% block body %}
+<div class="container">
+    <div class="row mgt10 noprint">
+       {% include 'admin_panel/_period_form.html.twig' %}
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <h4>Journal de bord du {{ from|date('d-m-Y') }} au {{ to|date('d-m-Y') }}
+            <a class="btn-floating teal white-text noprint secondary-content" href="#" id="printer"><i class="material-icons">local_printshop</i></a>
+            </h4>
+        </div>
+    </div>
+    <div class="row">
+        <table>
+            <thead>
+                <tr>
+                    <td class="bolder left-align">
+                        Date
+                    </td>
+                    <td class="bolder left-align">
+                        Moyens de paiement
+                    </td>
+                    <td class="bolder center-align">
+                        Montants
+                    </td>
+                    <td class="bolder center-align">
+                        Remboursements
+                    </td>
+                    <td class="bolder right-align">
+                        Total
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+            {% for date, payment_modes in period_data %}
+                {% for  payment_mode, payment_informations in payment_modes %}
+                    <tr>
+                        <td class="bolder">
+                            {% if loop.index == 1 %}{{ date|date('d-m-Y') }} {% endif %}
+                        </td>
+                        <td>
+                            {{ payment_mode }}
+                        </td>
+                        <td class="bolder center-align">
+                            {{ payment_informations.total }} €
+                        </td>
+                        <td class="center-align">
+                            {% if payment_informations.refund > 0 %}
+                                - {{ payment_informations.refund }} €
+                            {% endif %}
+                        </td>
+                        <td class="right-align bolder">
+                            {{ payment_informations.total - payment_informations.refund }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\PaymentMode;
 use App\Entity\Purchase;
+use App\Entity\Refund;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
@@ -29,9 +30,9 @@ class PurchaseRepository extends ServiceEntityRepository
         if (null === $date) {
             $date = new DateTime('now');
         }
-        $date = $date->format('Y-m-d');
-        $start = new DateTime($date . 'T00:00:00');
-        $end   = new DateTime($date . 'T23:59:59');
+        $start = $date->setTime(0, 0);
+        $end   = clone $start;
+        $end->setTime(23, 59);
 
         $result = $this->createQueryBuilder('p')
             ->andWhere('p.createdAt >= :start')
@@ -49,9 +50,9 @@ class PurchaseRepository extends ServiceEntityRepository
         if(null === $date) {
             $date = new DateTime('now');
         }
-        $date = $date->format('Y-m-d');
-        $start = new DateTime($date . 'T00:00:00');
-        $end   = new DateTime($date . 'T23:59:59');
+        $start = $date->setTime(0, 0);
+        $end   = clone $start;
+        $end->setTime(23, 59);
 
         $result = $this->createQueryBuilder('p')
             ->andWhere('p.createdAt >= :start')
@@ -69,9 +70,9 @@ class PurchaseRepository extends ServiceEntityRepository
 
     public function findAllByDate(DateTime $date)
     {
-        $date = $date->format('Y-m-d');
-        $start = new DateTime($date . 'T00:00:00');
-        $end   = new DateTime($date . 'T23:59:59');
+        $start = $date->setTime(0, 0);
+        $end = clone $start;
+        $end->setTime(23, 59);
 
         return $this->createQueryBuilder('p')
             ->andWhere('p.createdAt >= :start')
@@ -89,9 +90,9 @@ class PurchaseRepository extends ServiceEntityRepository
         if (null === $date) {
             $date = new DateTime('now');
         }
-        $date = $date->format('Y-m-d');
-        $start = new DateTime($date . 'T00:00:00');
-        $end   = new DateTime($date . 'T23:59:59');
+        $start = $date->setTime(0, 0);
+        $end = clone $start;
+        $end->setTime(23, 59);
 
         return $this->createQueryBuilder('p')
             ->andWhere('p.createdAt >= :start')
@@ -105,6 +106,27 @@ class PurchaseRepository extends ServiceEntityRepository
             ->groupBy('pm.name')
             ->getQuery()
             ->getResult();
+    }
+
+    public function getTotalByPaymentModePeriod(DateTime $from, DateTime $to)
+    {
+        $start = $from->setTime(0, 0);
+        $end   = $to->setTime(23, 59);
+
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.createdAt >= :start')
+            ->setParameter('start', $start)
+            ->andWhere('p.createdAt <= :end')
+            ->setParameter('end', $end)
+            ->select('DATE(p.createdAt) date')
+            ->addSelect('p.totalAmount total')
+            ->join(PaymentMode::class, 'pm', Join::WITH, 'p.paymentMode = pm.id')
+            ->addSelect('pm.name payment_mode')
+            ->addSelect('pm.identifier identifier')
+            ->orderBy('date', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
 

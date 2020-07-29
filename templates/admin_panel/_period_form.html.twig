@@ -1,0 +1,13 @@
+{{ form_start(form) }}
+<div class="col s4">
+    <label>Du</label>
+    {{ form_widget(form.from) }}
+</div>
+<div class="col s4">
+    <label for="">Au</label>
+    {{ form_widget(form.to) }}
+</div>
+<div class="col s4">
+    <button type="submit" class="btn-floating pink white-text mgt20"><i class="material-icons">search</i></button>
+</div>
+{{ form_end(form) }}

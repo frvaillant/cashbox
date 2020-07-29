@@ -29,9 +29,9 @@ class PurchaseUnityRepository extends ServiceEntityRepository
         if (null === $date) {
             $date = new DateTime('now');
         }
-        $date = $date->format('Y-m-d');
-        $start = new DateTime($date . 'T00:00:00');
-        $end   = new DateTime($date . 'T23:59:59');
+        $start = $date->setTime(0, 0);
+        $end = clone $start;
+        $end   = $end->setTime(23, 59);
 
         return $this->createQueryBuilder('pu')
             ->andWhere('pr.createdAt >= :start')

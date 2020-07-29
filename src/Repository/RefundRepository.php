@@ -22,14 +22,16 @@ class RefundRepository extends ServiceEntityRepository
         parent::__construct($registry, Refund::class);
     }
 
-    public function getTotalRefundByDate($date = null)
+    public function getTotalRefundByDate(DateTime $date = null)
     {
+
         if (null === $date) {
             $date = new DateTime('now');
         }
-        $date = $date->format('Y-m-d');
-        $start = new DateTime($date . 'T00:00:00');
-        $end   = new DateTime($date . 'T23:59:59');
+        $start = $date;
+        $end   = clone $date;
+        $start = $start->setTime(0, 0, 0);
+        $end   = $end->setTime(23, 59);
 
         $result = $this->createQueryBuilder('r')
             ->andWhere('r.createdAt >= :start')
@@ -67,14 +69,15 @@ class RefundRepository extends ServiceEntityRepository
 
     }
 
-    public function findAllByDateWithProduct($date = null)
+    public function findAllByDateWithProduct(DateTime $date = null)
     {
         if (null === $date) {
             $date = new DateTime('now');
         }
-        $date = $date->format('Y-m-d');
-        $start = new DateTime($date . 'T00:00:00');
-        $end   = new DateTime($date . 'T23:59:59');
+        $start = $date;
+        $end   = clone $date;
+        $start = $start->setTime(0, 0);
+        $end   = $end->setTime(23, 59);
 
         $result = $this->createQueryBuilder('r')
             ->where('r.createdAt >= :start')

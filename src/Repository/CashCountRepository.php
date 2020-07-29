@@ -22,10 +22,10 @@ class CashCountRepository extends ServiceEntityRepository
 
     public function getTotayCashCount()
     {
-        $date = new DateTime('now');
-        $date = $date->format('Y-m-d');
-        $start = new DateTime($date . 'T00:00:00');
-        $end   = new DateTime($date . 'T23:59:59');
+        $start = new DateTime('now');
+        $end   = clone $start;
+        $start = $start->setTime(0, 0);
+        $end   = $end->setTime(23, 59);
 
         $result = $this->createQueryBuilder('c')
             ->select('c.amount')
@@ -43,10 +43,10 @@ class CashCountRepository extends ServiceEntityRepository
 
     public function hasBeenCountedToday(): bool
     {
-        $date = new DateTime('now');
-        $date = $date->format('Y-m-d');
-        $start = new DateTime($date . 'T00:00:00');
-        $end   = new DateTime($date . 'T23:59:59');
+        $start = new DateTime('now');
+        $start->setTime(0, 0);
+        $end = clone $start;
+        $end   = $end->setTime(23, 59);
 
         $result = $this->createQueryBuilder('c')
             ->select('c.amount')

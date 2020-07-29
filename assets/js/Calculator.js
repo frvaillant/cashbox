@@ -16,31 +16,33 @@ export class Calculator {
     }
 
     init() {
-        this.validator.addEventListener('click', () => {
-            this.validate()
-            const sidenav = document.getElementById('adder');
-            M.Sidenav.init(sidenav);
-        })
-
-        this.eraser.addEventListener('click', () => {
-            this.resetQuantity()
-        })
-
-        const buttons = this.buttons
-        for (let i = 0; i <buttons.length; i++) {
-            buttons[i].addEventListener('click', () => {
-                this.setQuantity(buttons[i].dataset.value)
+        if(this.validator) {
+            this.validator.addEventListener('click', () => {
+                this.validate()
+                const sidenav = document.getElementById('adder');
+                M.Sidenav.init(sidenav);
             })
 
-            buttons[i].addEventListener('mousedown', () => {
-                buttons[i].classList.add('pushed')
+            this.eraser.addEventListener('click', () => {
+                this.resetQuantity()
             })
-            buttons[i].addEventListener('mouseup', () => {
-                buttons[i].classList.remove('pushed')
-            })
-            buttons[i].addEventListener('mouseout', () => {
-                buttons[i].classList.remove('pushed')
-            })
+
+            const buttons = this.buttons
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].addEventListener('click', () => {
+                    this.setQuantity(buttons[i].dataset.value)
+                })
+
+                buttons[i].addEventListener('mousedown', () => {
+                    buttons[i].classList.add('pushed')
+                })
+                buttons[i].addEventListener('mouseup', () => {
+                    buttons[i].classList.remove('pushed')
+                })
+                buttons[i].addEventListener('mouseout', () => {
+                    buttons[i].classList.remove('pushed')
+                })
+            }
         }
     }
 

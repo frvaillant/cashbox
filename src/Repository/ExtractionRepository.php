@@ -25,9 +25,10 @@ class ExtractionRepository extends ServiceEntityRepository
         if (null === $date) {
             $date = new DateTime('now');
         }
-        $date = $date->format('Y-m-d');
-        $start = new DateTime($date . 'T00:00:00');
-        $end   = new DateTime($date . 'T23:59:59');
+        $start = $date;
+        $end   = clone $date;
+        $start = $start->setTime(0, 0);
+        $end   = $end->setTime(23, 59);
 
         $result = $this->createQueryBuilder('e')
             ->andWhere('e.createdAt >= :start')

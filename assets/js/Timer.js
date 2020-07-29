@@ -35,13 +35,21 @@ class Timer {
     }
 
     render() {
-        this.renderZone.innerHTML = this.getDateTime()
+        if(this.renderZone) {
+            this.renderZone.innerHTML = this.getDateTime()
+        }
+    }
+
+    isInstanciable() {
+        return (this.renderZone) ? true : false
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     const timer = new Timer('clock')
-    window.setInterval(() => {
-        timer.render()
-    },1000)
+    if (timer.isInstanciable()) {
+        window.setInterval(() => {
+            timer.render()
+        }, 1000)
+    }
 })
