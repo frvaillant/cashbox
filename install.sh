@@ -4,7 +4,7 @@ read yes
 if [ "$yes" == YES ]
 then
   folder='cashbox'
-  chmod -R 755 "$folder"
+  chmod 755 "$folder"
   touch "$folder"/.env.local
   echo 'Your SQL login : '
   read username
