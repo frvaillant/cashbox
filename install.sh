@@ -16,7 +16,7 @@ then
   setterDb=DATABASE_URL=mysql://$username:$password@127.0.0.1:3306/$databasename
   echo "$setterEnv" >> "$folder"/.env.local
   echo "$setterDb" >> "$folder"/.env.local
-  cd "$folder" || exit
+  cd "$folder"
   composer install
   yarn install
   php bin/console doctrine:database:create

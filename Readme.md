@@ -27,12 +27,11 @@ Go in the folder where you want install CashBox
 cd the_directory_where_you_want_to_install_cashbox
 ```
 
-Download the project with 
+Download the project with (check before you don't have any folder named "cashbox")
 ```  
-git clone https://github.com/frvaillant/cashbox
+git clone --master https://github.com/frvaillant/cashbox --branch master --single-branch
 ```
-
-run the command
+when done, just run the command
 ```
 sh cashbox/install.sh
 ```
