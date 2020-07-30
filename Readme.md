@@ -38,7 +38,7 @@ sh cashbox/install.sh
 The script will ask you informations to set up your database 
 and will run the necessary commands to setup CashBox.  
 
-When install is done, go in the cashbox folder `cd cashbox` and run your server.  
+When install is done, remove install.sh file, go in the cashbox folder with `cd cashbox` and run your server.  
 *****
 Enjoy :-)  
 *****
