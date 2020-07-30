@@ -17,7 +17,7 @@ François VAILLANT
 MIT 
 
 ## requirements
-PHP 7.4  
+PHP >= 7.4  
 Mysql 
  
 ## How to install
@@ -27,7 +27,7 @@ Go in the folder where you want install CashBox
 cd the_directory_where_you_want_to_install_cashbox
 ```
 
-Download the project with (check before you don't have any folder named "cashbox")
+Download the project with
 ```  
 git clone https://github.com/frvaillant/cashbox --branch master --single-branch
 ```
