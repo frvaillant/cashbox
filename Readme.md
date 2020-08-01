@@ -18,9 +18,11 @@ MIT
 
 ## requirements
 PHP >= 7.4  
-Mysql 
+Mysql  
+Composer  : [Install composer](https://getcomposer.org/doc/00-intro.md)  
+Yarn : [Yarn installation](https://classic.yarnpkg.com/en/docs/install/#mac-stable)  
  
-## How to install
+## How to install Cashbox
 
 Go in the folder where you want install CashBox
 ```
