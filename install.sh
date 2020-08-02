@@ -30,7 +30,7 @@ then
   echo "${setterDb}" >> ".env.local"
   composer install || err "Is composer alive?"
   yarn install || err "Error with Yarn"
-  php bin/console doctrine:database:create || err "Error withDoctrine database create"
+  php bin/console doctrine:database:create || err "Error with Doctrine database create"
   php bin/console doctrine:migrations:migrate --no-interaction || err "Error with Doctrine database migrate"
   yarn encore prod || err "Error with Yarn"
   echo '*************************************'
