@@ -12,11 +12,25 @@ err () {
     >&2 printf "ERROR : %s\n" "${mess}"
     exit "$code"
 }
+
+required_commands ()
+{
+    # Check if an executable exist
+    # $programs : executables separated with spaces
+    local programs
+    programs="${*}"
+    for p in $programs
+    do
+        command -v "$p" >/dev/null 2>&1 || err "${p} not found, Cashbox installer needs \`${programs}\`." 128
+    done
+}
+
 printf "Cashbox will be installed in %s\n" "$SCRIPTPATH"
 printf 'this program suppose you work with mysql installed @127.0.0.1:3306. Say YES to continue : '
 read -r yes
 if [ "$yes" = 'YES' ]
 then
+  required_commands "yarn composer php"
   cd "$SCRIPTPATH" || err "Can't cd into ${SCRIPTPATH}"
   printf "Your SQL login : "
   read -r username
@@ -30,7 +44,7 @@ then
   echo "${setterDb}" >> ".env.local"
   composer install || err "Is composer alive?"
   yarn install || err "Error with Yarn"
-  php bin/console doctrine:database:create || err "Error withDoctrine database create"
+  php bin/console doctrine:database:create || err "Error with Doctrine database create"
   php bin/console doctrine:migrations:migrate --no-interaction || err "Error with Doctrine database migrate"
   yarn encore prod || err "Error with Yarn"
   echo '*************************************'
