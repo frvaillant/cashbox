@@ -5,12 +5,16 @@
     <div class="container">
         <div class="row">
             <div class="col s12 m8 flex flex-center extensive-h">
-                <img src="{{ asset('build/logo-cashbox.svg') }}">
+                <img src="{{ asset('build/logo-cashbox.svg') }}" width="50%">
+                <p>
+                    <h2 class="white-text">Version de démonstration</h2>
+                </p>
             </div>
             <div class="col s12 m4 flex flex-center extensive-h">
                 <div class="row" id="connection">
                     {%  include 'security/login.html.twig' %}
                 </div>
+
             </div>
         </div>
 
