@@ -17,7 +17,7 @@ class LogRegistrator
 
     public function registerLog($message)
     {
-        $folder = $this->kernel->getProjectDir();
+        $folder = $this->kernel->getProjectDir() . '/Logs';
         $file = fopen($folder . '/logs.log', 'a');
         $date = new \DateTime();
         $datefr = $date->format('d-m-Y');
