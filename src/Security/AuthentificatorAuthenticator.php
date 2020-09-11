@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Command\LogRegistrator;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -30,13 +31,15 @@ class AuthentificatorAuthenticator extends AbstractFormLoginAuthenticator implem
     private $urlGenerator;
     private $csrfTokenManager;
     private $passwordEncoder;
+    private $logRegistrator;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, LogRegistrator $logRegistrator)
     {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
+        $this->logRegistrator = $logRegistrator;
     }
 
     public function supports(Request $request)
@@ -98,8 +101,10 @@ class AuthentificatorAuthenticator extends AbstractFormLoginAuthenticator implem
 
         $user = $token->getUser();
         if ($user->isAdmin()) {
+            $this->logRegistrator->registerLog('s\'est connecté en tant qu\'admin');
             return new RedirectResponse($this->urlGenerator->generate('admin_panel'));
         }
+        $this->logRegistrator->registerLog('s\'est connecté en tant que user');
         return new RedirectResponse($this->urlGenerator->generate('cash_box'));
     }
 
